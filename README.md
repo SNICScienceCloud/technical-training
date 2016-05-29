@@ -1,2 +1,2 @@
 # technical-training
-Material for technical training workshops hosted by SSC 
+Material for technical training and workshops hosted by SSC 
