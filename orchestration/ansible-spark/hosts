@@ -1,0 +1,13 @@
+ansible-node ansible_ssh_host=<Private IP address of ansible node>
+sparkmaster ansible_ssh_host=<Private IP address of sparkmaster node> 
+sparkworker ansible_ssh_host=<Private IP address of sparkmaster node>
+
+[configNode]
+ansible-node ansible_connection=local ansible_user=ubuntu
+
+[sparkmaster]
+sparkmaster ansible_connection=ssh ansible_user=ubuntu
+
+[sparkworker]
+sparkmaster ansible_connection=ssh ansible_user=ubuntu
+

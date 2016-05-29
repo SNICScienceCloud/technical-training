@@ -1,0 +1,57 @@
+- hosts: all
+
+  tasks:
+ 
+   - name: "Build hosts file"
+     lineinfile: dest=/etc/hosts regexp='.*{{ item }}$' line= "{{ hostvars[item].ansible_default_ipv4.address }} {{item}}" state=present
+     when: hostvars[item].ansible_default_ipv4.address is defined
+     with_items: "{{groups['all']}}" 
+
+   - name: set hostname
+     hostname: name="{{inventory_hostname}}"
+
+- hosts: sparkmaster
+  
+  tasks: 
+
+   - name: Include variables
+     include_vars: '../files/var.yml'
+
+   - name: apt update
+     apt: update_cache=yes upgrade=dist
+   
+   - name: install java
+     apt: pkg={{item}} state=installed update_cache=true 
+     with_items:
+      - default-jre
+      - default-jdk
+ 
+   - name: download spark
+     unarchive: src={{item}} dest=/usr/local/ copy=no 
+     with_items: "{{spark_urls}}"
+   
+   - name: adding paths
+     lineinfile: dest="{{rc_file}}" line='export PATH=$PATH:{{spark_home}}/bin/:{{scala_home}}/bin\nexport JAVA_HOME={{java_home}}\nSPARK_HOME={{spark_home}}' insertafter='EOF' regexp='export PATH=\$SPARK_HOME' state=present 
+
+   - name: source bashrc   
+     shell: . "{{rc_file}}"
+   
+   - name: disable IPv6
+     shell: "{{item}}"
+     with_items:
+      - echo "net.ipv6.conf.all.disable_ipv6 = 1\nnet.ipv6.conf.default.disable_ipv6 = 1\nnet.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf
+      - sysctl -p
+
+  
+   - name: start spark master process
+     shell: nohup {{spark_home}}/sbin/start-master.sh  &
+ 
+- hosts: sparkworker
+
+  tasks: 
+
+   - name: Include variables
+     include_vars: '../files/var.yml'
+
+   - name: start spark worker process
+     shell: nohup {{spark_home}}/sbin/start-slave.sh spark://sparkmaster:7077 &

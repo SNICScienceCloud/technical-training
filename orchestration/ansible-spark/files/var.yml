@@ -1,0 +1,8 @@
+rc_file: /home/ubuntu/.bashrc
+spark_home: /usr/local/spark-1.6.1-bin-hadoop2.6
+scala_home: /usr/local/scala-2.11.8
+java_home: /usr/lib/jvm/java-7-openjdk-amd64 
+spark_urls:
+ - http://apache.mirrors.spacedump.net/spark/spark-1.6.1/spark-1.6.1-bin-hadoop2.6.tgz
+ - http://downloads.lightbend.com/scala/2.11.8/scala-2.11.8.tgz
+
