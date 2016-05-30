@@ -4,7 +4,7 @@ In this lab you will learn the basics of how to automatically configure instance
 
 Estimated time needed to complete the entire lab: 3-5 hours.
 
-## Introduction:
+## Introduction
 
 The aim of this tutorial is to give you hands-on experience with the service contextualization and orchestration. The lab will provide a brief introduction to different tools that can be used for efficient resource-provisioning. This forms a foundation for automated, robust and reprodicible resource management in the SNIC Science Cloud. SSC is based on the Liberty release of OpenStack and offers the follwing core services: 
 
@@ -34,7 +34,7 @@ Please follow the instructions, execute the tasks and answer the related questio
 
 Good Luck!
 
-# Task-0 (Setting the environement for API access)
+## Task-0 (Setting the environement for API access)
 
 Install Openstack libraries on your local machine,
  
@@ -42,9 +42,11 @@ Install Openstack libraries on your local machine,
 and download the client tools and API for OpenStack. 
 2.	Download the Runtime Configuration (RC) file from the SSC site (Project->Compute->Access & Security->API Access->Download OpenStack RC File).
 3.	Set the environment variables by sourcing the RC-file:
-    $ source <project_name>_openrc.sh
+```bash
+source <project_name>_openrc.sh
+```
 
-Questions:
+### Questions:
 
 1.	What version of the API are we using? 
 2.	Explain how the communication works in OpenStack?
@@ -52,27 +54,25 @@ Questions:
 
 Task-1 (Resources Provisioning using CLIs and APIs)
 
+Use the command-lineinterface (CLI) tools as well as the python APIs (example coode is available in OpenStack-API directory) to achieve following tasks: 
 
-Use command-line tools and python APIs (Code is available in OpenStack-API directory) to achieve following tasks: 
+*Note: you need to edit the Python files and enter your key-name, private-network and floating IP information.*
 
-Note: do not forget to added your key-name, private-network and floating IP information in the python files.
-
-4.	List available images.
-5.	List running instances.
-6.	Boot a new instance.
-7.	Modify the code to boot multiple instances. 
-8.	Attach a floating IP and connect via SSH.
-9.	Write python code to terminate the instance. 
+4.	List available images
+5.	List running instances
+6.	Boot a new instance
+7.	Modify the code to boot multiple instances 
+8.	Attach a floating IP and connect via SSH
+9.	Write python code to terminate the instance  
 10.	 Contextualize the instance at boot time. Code is available in “nova/add-userdata” directory
 
-Questions:
+### Questions:
 
 1.	What is the difference between the private IP and the floating IP?
 2.	Can you access the Internet from the VM without assigning a floating IP to the machine?
-3.	Explain the function parameters used to boot a single instance?
+3.	Explain the arguements to the function used in Python to boot a single instance?
 
-
-Task-2 (Single Machine Contextualization)
+## Task-2 (Single-machine contextualization)
 
 NOTE: The code is designed to run on Ubuntu VMs. 
 
