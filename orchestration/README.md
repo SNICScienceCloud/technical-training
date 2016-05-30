@@ -146,7 +146,7 @@ heat stack-create stack_with_init_script -f ssc-test-stack.yaml
 2.	What are the advantages of using templates rather than the APIs?
 3.	Explain the different sections in the templates?
 
-## Task-5 (Introduction to Linux Containers)
+## Task-5: Introduction to Linux Containers
 
 This task will introduce you to Linux containers. There are different technologies available but in this lab we will focus on LXC containers. Follow the instructions available on the following page: 
 
