@@ -72,7 +72,7 @@ Use the command-line interface (CLI) tools as well as the python APIs (example c
 2.	Can you access the Internet from the VM without assigning a floating IP to the machine?
 3.	Explain the arguements to the function used in Python to boot a single instance?
 
-## Task-2 (Single-machine contextualization)
+## Task-2: Single-machine contextualization
 
 *NOTE: The code assumes Ubuntu VMs.*
 
@@ -101,8 +101,8 @@ If you are using Windows, use a Linux VM or install a cURL client for Windows.
 
 In this task we will configure a Spark cluster using Ansible. Ansible is an open source  IT-automation engine that can be used to automate provisioning, configuration and deployment of cloud resurces. First, start two virtual machines based on Ubuntu:
 
-•	ansible-node
-•	sparkmaster
+-ansible-node
+-sparkmaster
 
 copy the “ansible-spark” directory to the ansible-node. Run the “install_ansible.sh” script. Then configure the Ansible setup with the following steps (all executed on the ansible-node):
 
@@ -111,8 +111,9 @@ copy the “ansible-spark” directory to the ansible-node. Run the “install_a
 3.	Make sure you can login to the machines. Also check that the user account has the “sudo” privileges.
 4.	Open the ““/home/ubuntu/spark/hosts” file and fill the private IP addresses of the nodes.  
 5.	Goto “/home/ubuntu/spark” directory and execute the following command:
-
-    ansible-playbook -i hosts -s playbooks/spark-deployment.yml   
+```bash
+ansible-playbook -i hosts -s playbooks/spark-deployment.yml   
+```
 
 The complete deployment will take approximately 20 to 30 minutes. Once the installation is finished you can check the cluster status using the following URL: 
 
@@ -134,7 +135,9 @@ In this task you will create a cluster of two machines using the Heat engine. He
 2.	Generate a SSH key-pair, # ssh-keygen –t rsa
 3.	Replace “<ADD-CLUSTER’s-PUBLIC-KEY>” with the public part of the generated key pair. Replace it for both of the instances.
 4.	Run the command
-    # heat stack-create stack_with_init_script -f ssc-test-stack.yaml
+```bash
+heat stack-create stack_with_init_script -f ssc-test-stack.yaml
+```
 5.	Open the SSC dashboard and click on the Orchestration and check the status of your stack.  
  
 ### Questions:
@@ -147,7 +150,7 @@ In this task you will create a cluster of two machines using the Heat engine. He
 
 This task will introduce you to Linux containers. There are different technologies available but in this lab we will focus on LXC containers. Follow the instructions available on the following page: 
 
-https://linuxcontainers.org/lxc/getting-started/
+[https://linuxcontainers.org/lxc/getting-started/](https://linuxcontainers.org/lxc/getting-started/)
 
 Start two unprivileged containers with the following parameters: 
 
