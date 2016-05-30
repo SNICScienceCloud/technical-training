@@ -16,7 +16,7 @@ The aim of this tutorial is to give you hands-on experience with the service con
 6.	Orchestration (Heat) 
 7.	Object Storage (Swift)
 
-Together with this lab description, this lab is based on code in thefollowing five sub-directories: 
+Together with this lab description, this lab is based on code in the following tasks: 
 
 Task 1: OpenStack-API
 Task 2: CloudInit-Contextualization
@@ -81,19 +81,19 @@ The following link provides an introduction to Cloudinit
 https://help.ubuntu.com/community/CloudInit
 
 In this task you will prepare a single instance to install packages and start a web-service “cowsay” on the instance.  The configuration is done by CloudInit package. Run the code, It will prepare the instance at boot time. Once the instance will be running, Test that things are working by executing (from your client)
-
+```bash
 curl -i http://<your_public_ip>:5000/cowsay/api/v1.0/saysomething
-
+```
 If you are using Windows, use a Linux VM or install a cURL client for Windows.
  
 ### Questions:
 
 1.	Explain the output?
-2.	 What is contextualization? 
-3.	What Language is use to prepare CloudInit configurations?  
+2.	What is contextualization? 
+3.	What language is use to prepare CloudInit configurations?  
 4.	What are the variants of CloudInit package?  
 5.	Can we run CloudInit scripts without booting an instance? 
-6.	What limitation you can anticipate with CloudInit package?
+6.	What limitation you can anticipate with the CloudInit package?
 
 ## Task-3: Cluster contextualization
 
@@ -101,8 +101,8 @@ If you are using Windows, use a Linux VM or install a cURL client for Windows.
 
 In this task we will configure a Spark cluster using Ansible. Ansible is an open source  IT-automation engine that can be used to automate provisioning, configuration and deployment of cloud resurces. First, start two virtual machines based on Ubuntu:
 
--ansible-node
--sparkmaster
+* ansible-node
+* sparkmaster
 
 copy the “ansible-spark” directory to the ansible-node. Run the “install_ansible.sh” script. Then configure the Ansible setup with the following steps (all executed on the ansible-node):
 
