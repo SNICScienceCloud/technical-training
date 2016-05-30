@@ -34,7 +34,7 @@ Please follow the instructions, execute the tasks and answer the related questio
 
 Good Luck!
 
-## Task-0 (Setting the environement for API access)
+## Task-0: Setting the environement for API access
 
 Install Openstack libraries on your local machine,
  
@@ -52,9 +52,9 @@ source <project_name>_openrc.sh
 2.	Explain how the communication works in OpenStack?
 3.	Can we use EC2 and S3 APIs to communicate with OpenStack?
 
-Task-1 (Resources Provisioning using CLIs and APIs)
+Task-1: Resource provisioning using CLIs and APIs
 
-Use the command-lineinterface (CLI) tools as well as the python APIs (example coode is available in OpenStack-API directory) to achieve following tasks: 
+Use the command-line interface (CLI) tools as well as the python APIs (example coode is available in OpenStack-API directory) to achieve following tasks: 
 
 *Note: you need to edit the Python files and enter your key-name, private-network and floating IP information.*
 
@@ -74,9 +74,9 @@ Use the command-lineinterface (CLI) tools as well as the python APIs (example co
 
 ## Task-2 (Single-machine contextualization)
 
-NOTE: The code is designed to run on Ubuntu VMs. 
+*NOTE: The code assumes Ubuntu VMs.*
 
-Following link provides the basic introduction to Cloudinit 
+The following link provides an introduction to Cloudinit 
 
 https://help.ubuntu.com/community/CloudInit
 
@@ -86,8 +86,7 @@ curl -i http://<your_public_ip>:5000/cowsay/api/v1.0/saysomething
 
 If you are using Windows, use a Linux VM or install a cURL client for Windows.
  
-
-Questions:
+### Questions:
 
 1.	Explain the output?
 2.	 What is contextualization? 
@@ -96,16 +95,16 @@ Questions:
 5.	Can we run CloudInit scripts without booting an instance? 
 6.	What limitation you can anticipate with CloudInit package?
 
-Task-3 (Cluster base contextualization)
+## Task-3: Cluster contextualization
 
-NOTE: The code is designed to run on Ubuntu VMs.
+*NOTE: The code assumes Ubuntu VMs.*
 
-In this task we will configure a cluster using Ansible. The task will deploy the spark cluster. Start two virtual machines, 
+In this task we will configure a Spark cluster using Ansible. Ansible is an open source  IT-automation engine that can be used to automate provisioning, configuration and deployment of cloud resurces. First, start two virtual machines based on Ubuntu:
 
 •	ansible-node
 •	sparkmaster
 
-copy the “ansible-spark” directory to the ansible-node. Run the “install_ansible.sh” script. Configure the Ansible setup with the following steps:
+copy the “ansible-spark” directory to the ansible-node. Run the “install_ansible.sh” script. Then configure the Ansible setup with the following steps (all executed on the ansible-node):
 
 1.	Generate a SSH key-pair, # ssh-keygen –t rsa
 2.	Add the public key to both of the hosts “authorized_keys” file. 
@@ -113,40 +112,40 @@ copy the “ansible-spark” directory to the ansible-node. Run the “install_a
 4.	Open the ““/home/ubuntu/spark/hosts” file and fill the private IP addresses of the nodes.  
 5.	Goto “/home/ubuntu/spark” directory and execute the following command:
 
-# ansible-playbook -i hosts -s playbooks/spark-deployment.yml   
+    ansible-playbook -i hosts -s playbooks/spark-deployment.yml   
 
-Complete deployment will take approximately 20 to 30 minutes. Once the installation will be finished check the cluster status using following URL: 
+The complete deployment will take approximately 20 to 30 minutes. Once the installation is finished you can check the cluster status using the following URL: 
 
 http://<floating-IP-sparkmaster>:8080
  
-Questions:
+### Questions:
 
-1.	What language Ansible used to define the configurations? 
+1.	What language is used by Ansible to define the configurations? 
 2.	Can Ansible be used with different Linux distributions? 
-3.	What is Ansible Inventory file?
-4.	What is the major difference between CloudInit vs Ansible based resources contextualization?
-5.	Explain how Ansible works and also with in the scope of this task what is still missing to automate?  
+3.	What is Ansible inventory file?
+4.	What is the major difference between CloudInit vs Ansible-based resource contextualization?
+5.	Explain how Ansible works and suggest, within the scope of this task, what is still left to automate?  
 
-Task-4 (Orchestration using Heat)
+## Task-4: Orchestration using Heat
 
-In this task you will create a cluster of two machines using Heat template. This cluster will be completely customized by having its own network, security group, router settings and resources. Following steps will guide you to fill the required information in the template file:
+In this task you will create a cluster of two machines using the Heat engine. Heat is OpenStack's native orcherstation engine and will  let you automate the deployment of complex resources/stacks. The cluster will be completely customized by having its own network, security group, router settings and resources. Complete the following steps to provide the required information in the template file :
 
-1.	Entry your personal key name in the “Key” section’s default value.
+1.	Enter your personal key name by replacing the “key” section’s default value.
 2.	Generate a SSH key-pair, # ssh-keygen –t rsa
 3.	Replace “<ADD-CLUSTER’s-PUBLIC-KEY>” with the public part of the generated key pair. Replace it for both of the instances.
-4.	Run the command, # heat stack-create stack_with_init_script -f ssc-test-stack.yaml
+4.	Run the command
+    # heat stack-create stack_with_init_script -f ssc-test-stack.yaml
 5.	Open the SSC dashboard and click on the Orchestration and check the status of your stack.  
  
-Questions:
+### Questions:
 
-1.	What language Heat service used to define the templates?
+1.	What language is used with the Heat service to define the templates?
 2.	What are the advantages of using templates rather than the APIs?
-3.	Explain different sections in the templates?
+3.	Explain the different sections in the templates?
 
+## Task-5 (Introduction to Linux Containers)
 
-Task-5 (Introduction to Linux Containers)
-
-This task will introduce you to the Linux containers. There are different technologies available but we will focus on LXC containers. Follow the instructions available on the following page 
+This task will introduce you to Linux containers. There are different technologies available but in this lab we will focus on LXC containers. Follow the instructions available on the following page: 
 
 https://linuxcontainers.org/lxc/getting-started/
 
@@ -155,10 +154,10 @@ Start two unprivileged containers with the following parameters:
 1.	Distribution: Ubuntu, Release: trusty, Architecture: amd64
 2.	Distribution: Ubuntu, Release: trusty, Architecture: i386
 
-Questions:
+### Questions:
 
-1.	What category of virtualization Containers fall?
-2.	What are the other know variants of LXC? 
-3.	What makes LXC superior than the other container technologies?  
+1.	In what category of virtualization does containers fall?
+2.	How does LXC compate to other popular container technologies such as Docker?  
 
-
+## Where to go from here? 
+Why not check out how to [use Heat to deploy a Kubernetes cluster in SSC](https://github.com/SNICScienceCloud/catalystcloud-orchestration/tree/config-for-ssc/hot/ubuntu-14.04/kubernetes)? 
