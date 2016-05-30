@@ -18,11 +18,11 @@ The aim of this tutorial is to give you hands-on experience with the service con
 
 Together with this lab description, this lab is based on code in the following tasks: 
 
-Task 1: OpenStack-API
-Task 2: CloudInit-Contextualization
-Task 3: Ansible-Contextualization
-Task 4: Heat-Orchestration  
-Task 5: Containers 
+* Task 1: OpenStack-API
+* Task 2: CloudInit-Contextualization
+* Task 3: Ansible-Contextualization
+* Task 4: Heat-Orchestration  
+* Task 5: Containers 
 
 Please follow the instructions, execute the tasks and answer the related questions. 
 
