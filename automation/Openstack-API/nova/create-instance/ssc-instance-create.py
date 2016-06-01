@@ -11,6 +11,7 @@ from keystoneauth1 import session
 
 flavor = "m1.small" 
 private_net = None
+floating_ip_pool_name = None
 floating_ip = None
 
 loader = loading.get_plugin_loader('password')
@@ -40,6 +41,12 @@ secgroups = [secgroup.id]
 
 #floating_ip = nova.floating_ips.create(nova.floating_ip_pools.list()[0].name)
 
+if floating_ip_pool_name != None: 
+    floating_ip = nova.floating_ips.create(floating_ip_pool_name)
+else: 
+    sys.exit("public ip pool name not defined.")
+
+
 print "Creating instance ... "
 instance = nova.servers.create(name="vm1", image=image, flavor=flavor, nics=nics,security_groups=secgroups)
 inst_status = instance.status
@@ -56,8 +63,6 @@ print "Instance: "+ instance.name +" is in " + inst_status + "state"
 
 if floating_ip != None: 
     instance.add_floating_ip(floating_ip)
-
-if floating_ip == None:
     print "Instance booted! Name: " + instance.name + " Status: " +instance.status+ ", No floating IP attached"
 else:
     print "Instance booted! Name: " + instance.name + " Status: " +instance.status+ ", Floating IP: " + floating_ip.ip 
