@@ -42,11 +42,11 @@ Install Openstack libraries on your local machine,
 and download the client tools and API for OpenStack. 
 2.	Download the Runtime Configuration (RC) file from the SSC site (Project->Compute->Access & Security->API Access->Download OpenStack RC File).
 3.	Confirm that your RC file have following enviroment variables:
-	
-	export OS_USER_DOMAIN_NAME="Default"
-	export OS_IDENTITY_API_VERSION="3"
-	export OS_PROJECT_DOMAIN_NAME="Default"
-
+````bash	
+export OS_USER_DOMAIN_NAME="Default"
+export OS_IDENTITY_API_VERSION="3"
+export OS_PROJECT_DOMAIN_NAME="Default"
+```
 4.	Set the environment variables by sourcing the RC-file:
 ```bash
 source <project_name>_openrc.sh
