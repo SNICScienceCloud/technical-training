@@ -32,7 +32,7 @@ Please follow the instructions, execute the tasks and answer the related questio
 
 Good Luck!
 
-### Task-1: Provisioning a Virtual Machine
+## Task-1: Provisioning a Virtual Machine
 
 1.	Start an instance of Ubuntu 14.04 with 2 VCPUs.
 2.	Assign a floating IPs to the instance.
@@ -50,7 +50,7 @@ Good Luck!
 	b.	Compute Service
 
 
-### Task-2: Block Storage
+## Task-2: Block Storage
 
 1.	Create a volume of size 1GB.
 2.	Attach your newly created volume to your instance.
@@ -66,7 +66,7 @@ Good Luck!
 4.	Explain the main difference between Ephemeral Storage and Block-Storage. What are the major use-cases for the different storage types?
 5.	Does your VM have ephemeral storage?
 
-### Task-3: Network 
+## Task-3: Network 
 
 ### Questions:
 
@@ -91,7 +91,7 @@ Good Luck!
 2.	The corresponding system in Amazon Web Services is called "S3". Is there a principal difference between an "S3 bucket" and a container in OpenStack's object store?
 3.	What is the name of the OpenStack service providing the Object Store?
 
-# Task-5: Cowsay as a Service
+## Task-5: Cowsay as a Service
 
 In this task you will deploy a simple service to the benefit to the world. Access
 your VM and start by installing the program “cowsay” (use ‘apt-get’). Create a file cowsay-app.py and past the following code in the file.
