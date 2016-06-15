@@ -40,16 +40,6 @@ Good Luck!
 4.	Open port 4567 on the instance.
 5.	Create a snapshot of the instance.
 
-````bash	
-export OS_USER_DOMAIN_NAME="Default"
-export OS_IDENTITY_API_VERSION="3"
-export OS_PROJECT_DOMAIN_NAME="Default"
-```
-4.	Set the environment variables by sourcing the RC-file:
-```bash
-source <project_name>_openrc.sh
-```
-
 ### Questions:
 
 1.	What is the difference between the private IP and the floating IP?
