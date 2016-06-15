@@ -14,7 +14,7 @@ The aim of this computer assignment is to give you hands-on experience with the 
 5.	Network (Neutron)
 6.	Object Store(Swift)
 
-Together with this lab description, this lab is based on code in the following tasks: 
+This lab is based on the following five tasks: 
 
 * Task-1: Provisioning a Virtual Machine
 * Task 2: Block Storage
