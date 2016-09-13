@@ -62,7 +62,7 @@ Task-1: Resource provisioning using CLIs and APIs
 
 Use the command-line interface (CLI) tools as well as the python APIs (example coode is available in OpenStack-API directory) to achieve following tasks: 
 
-*Note: you need to edit the Python files and enter your key-name, private-network and floating IP information.*
+*Note: you need to edit the Python files (in the OpenStack-API folder) and enter your key-name, private-network and floating IP information.*
 
 4.	List available images
 5.	List running instances
