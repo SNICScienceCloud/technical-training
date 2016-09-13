@@ -81,6 +81,7 @@ Use the command-line interface (CLI) tools as well as the python APIs (example c
 ## Task-2: Single-machine contextualization
 
 *NOTE: The code assumes Ubuntu VMs.*
+The code for this task is in  the folder "contextualization".
 
 The following link provides an introduction to Cloudinit 
 
