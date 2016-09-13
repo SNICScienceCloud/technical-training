@@ -26,9 +26,9 @@ Please follow the instructions, execute the tasks and answer the related questio
 
 ### Important links:
 
-1.	Information page: http://cloud.snic.se
-2.	User Guide: http://www.uppmax.uu.se/smog-user-guide
-3.	Dashboard: http://horizon.cloud.snic.se
+1.	Information page: https://cloud.snic.se
+2.	User Guide: http://uppmax.uu.se/support/user-guides/smog-user-guide/
+3.	Dashboard: http://smog.uppmax.uu.se
 
 Good Luck!
 
