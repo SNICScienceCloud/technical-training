@@ -64,9 +64,9 @@ while inst_status == 'BUILD':
 
 print "Instance: "+ instance.name +" is in " + inst_status + "state"
 
-if floating_ip != None: 
+if floating_ip.ip != None: 
     instance.add_floating_ip(floating_ip)
-    print "Instance booted! Name: " + instance.name + " Status: " +instance.status+ ", No floating IP attached"
+    print "Instance booted! Name: " + instance.name + " Status: " +instance.status+ ", floating IP attached " + floating_ip.ip
 else:
-    print "Instance booted! Name: " + instance.name + " Status: " +instance.status+ ", Floating IP: " + floating_ip.ip 
+    print "Instance booted! Name: " + instance.name + " Status: " +instance.status+ ", floating IP missing"
 
