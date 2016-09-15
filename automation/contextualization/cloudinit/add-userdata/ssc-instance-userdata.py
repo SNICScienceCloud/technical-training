@@ -39,7 +39,7 @@ else:
 #print(os.getcwd() + "\n")
 cfg_file_path =  os.getcwd()+'/cloud-cfg.txt'
 if os.path.isfile(cfg_file_path):
-    userdata = open('cloud-cfg.txt')
+    userdata = open(cfg_file_path)
 else:
     sys.exit("cloud-cfg.txt is not in current working directory")
     
