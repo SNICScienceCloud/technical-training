@@ -37,8 +37,12 @@ else:
 
 #print("Path at terminal when executing this file")
 #print(os.getcwd() + "\n")
-userdata = open('cloud-cfg.txt')
-
+cfg_file_path =  os.getcwd()+'/cloud-cfg.txt'
+if os.path.isfile(cfg_file_path):
+    userdata = open('cloud-cfg.txt')
+else:
+    sys.exit("cloud-cfg.txt is not in current working directory")
+    
 secgroup = nova.security_groups.find(name="default")
 secgroups = [secgroup.id]
 
