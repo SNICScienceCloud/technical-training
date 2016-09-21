@@ -143,7 +143,7 @@ In this task you will create a cluster of two machines using the Heat engine. He
 3.	Replace “<ADD-CLUSTER’s-PUBLIC-KEY>” with the public part of the generated key pair. Replace it for both of the instances.
 4.	Run the command
 ```bash
-heat stack-create stack_with_init_script -f ssc-test-stack.yaml
+heat stack-create stack_with_init_script -f ssc-test-stack.yml
 ```
 5.	Open the SSC dashboard and click on the Orchestration and check the status of your stack.  
  
