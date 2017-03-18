@@ -5,7 +5,7 @@ Estimated time needed to complete the entire lab: 3-5 hours.
 
 ## Introduction
 
-The aim of this computer assignment is to give you hands-on experience with the cloud computing infrastructure. The SNIC Scoence Cloud (SSC) is an SNIC (Swedish National Infrastructure for Computing) national resource that provide Infrastructure-as-a-Service (IaaS). It is based on the OpenStack cloud software (Newton release) and Ceph storage and offers the following services:
+The aim of this computer assignment is to give you hands-on experience with the cloud computing infrastructure. The SNIC Science Cloud (SSC) is an SNIC (Swedish National Infrastructure for Computing) national resource that provide Infrastructure-as-a-Service (IaaS). It is based on the OpenStack cloud software (Newton release) and Ceph storage and offers the following services:
 
 1.	Compute (Nova)
 2.	Storage (Ephemeral, Cinder)
@@ -42,7 +42,7 @@ The OpenStack software helps you create/import keys, and will make sure that you
 
 ## Task 1: Provisioning a Virtual Machine
 
-1.	Start an instance of Ubuntu 16.04 with 2 VCPUs (remember to inject the keypair you created).
+1.	Start an instance of Ubuntu 16.04 with 2 VCPUs (remember to inject the keypair you created in Task 0).
 2.	Assign a floating IPs to the instance.
 3.	Access the instance using a SSH client (or if you are using Windows, using Putty) and install the program “cowsay”.
 4.	Open port 4567 on the instance.
@@ -61,22 +61,21 @@ The OpenStack software helps you create/import keys, and will make sure that you
 
 1.	Create a volume of size 1GB.
 2.	Attach your newly created volume to your instance.
-3.	Access the volume and copy a file to the attached volume.
+3.	Access the volume and copy a file to the attached volume (hint, you will need to format and mount the volume).
 4.	Modify the size of the volume created in step 1.
-5.	What is the name of the OpenStack service providing volumes?
 
 ### Questions:
 
-1.	What is the technology used to provide volumes in OpenStack? Is it RAID or LVM?
-2.	What is LVM? Explain the advantage(s) of using LVM?
-3.	Can one volume be attached to multiple instances or vice versa?
-4.	Explain the main difference between Ephemeral Storage and Block-Storage. What are the major use-cases for the different storage types?
-5.	Does your VM have ephemeral storage?
+1.	What is the name of the OpenStack service providing volumes?
+2.	What is the technology used to provide volumes in OpenStack? Is it RAID or LVM?
+3.	What is LVM? Explain the advantage(s) of using LVM?
+4.	Can one volume be attached to multiple instances or vice versa?
+5.	Explain the main difference between Ephemeral Storage and Block-Storage. What are the major use-cases for the different storage types?
+6.	Does your VM have ephemeral storage?
 
-## Task-3: Network 
+## Task 3: Network 
 
 ### Questions:
-
 
 1.	Explain the picture in the tab “Network Topology”
 2.	What is the subnet used by the Tenant?
@@ -101,7 +100,7 @@ The OpenStack software helps you create/import keys, and will make sure that you
 ## Task-5: Cowsay as a Service
 
 In this task you will deploy a simple service to the benefit to the world. Access
-your VM and start by installing the program “cowsay” (use ‘apt-get’). Create a file cowsay-app.py and past the following code in the file.
+your VM and start by installing the program “cowsay” (use ‘apt-get’). Create a file cowsay-app.py and paste the following code in the file.
 
 ```bash
 from flask import Flask, jsonify
@@ -128,7 +127,7 @@ Run:
 ```
 It will start a webserver on you VM.
 
-If you get any messages about missing packages, just go ahead and install the using “pip” (a Python package management system).
+If you get any messages about missing packages, just go ahead and install them using “pip” (a Python package management system).
 
 Test that things are working by executing (from your client)
 
