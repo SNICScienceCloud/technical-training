@@ -5,44 +5,51 @@ Estimated time needed to complete the entire lab: 3-5 hours.
 
 ## Introduction
 
-The aim of this computer assignment is to give you hands-on experience with the cloud computing infrastructure. Currently the SNIC cloud is an UPPMAX (Uppsala Multidisciplinary Center for Advanced Computational Science) resource that provide Infrastructure-as-a-Service (IaaS). It is based on the OpenStack cloud software (Kilo release) and Ceph storage and offers the following services:
+The aim of this computer assignment is to give you hands-on experience with the cloud computing infrastructure. The SNIC Scoence Cloud (SSC) is an SNIC (Swedish National Infrastructure for Computing) national resource that provide Infrastructure-as-a-Service (IaaS). It is based on the OpenStack cloud software (Newton release) and Ceph storage and offers the following services:
 
 1.	Compute (Nova)
 2.	Storage (Ephemeral, Cinder)
 3.	Identity management (KeyStone)
 4.	Image (Glance)
 5.	Network (Neutron)
-6.	Object Store(Swift)
+6. 	Orchestration (Heat)
+7.	Object Store(Swift)
 
-This lab is based on the following five tasks: 
+In this lab you will perform the following five tasks: 
 
-* Task-1: Provisioning a Virtual Machine
+* Task 1: Provisioning a Virtual Machine
 * Task 2: Block Storage
 * Task 3: Network
 * Task 4: Object Storage  
-* Task 5: Cowsay as a Service
+* Task 5: Deploy a simple REST-endopoint enable service: "Cowsay as a Service" 
 
 Please follow the instructions, execute the tasks and answer the related questions. 
 
 ### Important links:
 
 1.	Information page: https://cloud.snic.se
-2.	User Guide: http://uppmax.uu.se/support/user-guides/smog-user-guide/
-3.	Dashboard: http://smog.uppmax.uu.se
+
+The SSC information page contains links to the dashboard, to the OpenStack end-user guide (which you need to consult to complete the tasks below), as well as answers to many of the questions. 
 
 Good Luck!
 
-## Task-1: Provisioning a Virtual Machine
+## Task 0: Create a new SSH-keypair
+The only method allowed to access the cloud instances are via ssh-keypairs. Username/Password are disabled by default on all cloud instances (according to best practice) and should never be enabled for security reasons. If you are not familiar with the use of ssh-keys, here is a simple explaination of how it works: http://blakesmith.me/2010/02/08/understanding-public-key-private-key-concepts.html. 
 
-1.	Start an instance of Ubuntu 14.04 with 2 VCPUs.
+The OpenStack software helps you create/import keys, and will make sure that your public keys are injected in the instaces you create. The private key should be private and is for you to safekeep on your clients. 
+
+1. Create a new SSH-keypair from the Horizon portal (Compute -> Access and Security -> KeyPairs)
+
+## Task 1: Provisioning a Virtual Machine
+
+1.	Start an instance of Ubuntu 16.04 with 2 VCPUs (remember to inject the keypair you created).
 2.	Assign a floating IPs to the instance.
-3.	Access the instance using the SSH client (or if you are using Windows, using Putty) and install the program “cowsay”
+3.	Access the instance using a SSH client (or if you are using Windows, using Putty) and install the program “cowsay”.
 4.	Open port 4567 on the instance.
-5.	Create a snapshot of the instance.
 
 ### Questions:
 
-1.	What is the difference between the private IP and the floating IP?
+1.	What is the difference between the private IP and the floating IP that is attached to the instance?
 2.	Can you access the Internet from the VM without assigning a floating IP to the machine?
 3.	What is the difference between image, instance and snapshot?
 4.	What is the name of the OpenStack service responsible for providing the :
@@ -50,7 +57,7 @@ Good Luck!
 	b.	Compute Service
 
 
-## Task-2: Block Storage
+## Task 2: Block Storage
 
 1.	Create a volume of size 1GB.
 2.	Attach your newly created volume to your instance.
