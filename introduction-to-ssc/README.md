@@ -42,10 +42,14 @@ The OpenStack software helps you create/import keys, and will make sure that you
 
 ## Task 1: Provisioning a Virtual Machine
 
-1.	Start an instance of Ubuntu 16.04 with 2 VCPUs (remember to inject the keypair you created in Task 0).
+1.	Start an instance by booting an image of Ubuntu 16.04 with 2 VCPUs (remember to inject the keypair you created in Task 0). Choose the default option "Create New Volume" and choose no for "Delete Volume on Instance Delete" (default). 
 2.	Assign a floating IPs to the instance.
 3.	Access the instance using a SSH client (or if you are using Windows, using Putty) and install the program “cowsay”.
 4.	Open port 4567 on the instance.
+5.	Take a volume snapshot of your running instance. 
+5.	Terminate the instance. 
+6. 	Boot a new instance by booting it from from the recently created volume snapshot. 
+7. 	Delete the volume snapshot. 
 
 ### Questions:
 
@@ -55,7 +59,7 @@ The OpenStack software helps you create/import keys, and will make sure that you
 4.	What is the name of the OpenStack service responsible for providing the :
 	a.	Image Service
 	b.	Compute Service
-
+5. 	What is the difference between booting from an image (snapshot) and booting from a volume (snapshot) snapshot? 
 
 ## Task 2: Block Storage
 
