@@ -50,10 +50,10 @@ The OpenStack software helps you create/import keys, and will make sure that you
 6.	Terminate the instance. 
 7. 	Boot a new instance by booting it from from the volume that was created for your previous instance.
 8.	Access the VM. Is the file you created still there? 
-9.	Terminate the VM.
+9.      Terminate the VM.
 10. 	Create a snapshot of the volume. 
 11.	Boot a new instance from the volume snapshot. Access the instance. Is the "cowsay" program still installed? 
-12. 	Terminate the instance, delete the volume snapshot and delete the volume. 
+12.     Terminate the instance, delete the volume snapshot and delete the volume. 
 
 ### Questions:
 
