@@ -25,7 +25,7 @@ In this lab you will perform the following five tasks:
 
 Please follow the instructions, execute the tasks and answer the related questions. 
 
-### Important links:
+### Important links:  
 
 1.	Information page: https://cloud.snic.se
 
