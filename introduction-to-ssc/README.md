@@ -45,7 +45,7 @@ The OpenStack software helps you create/import keys, and will make sure that you
 1.	Start an instance by booting an image of Ubuntu 16.04 with 2 VCPUs (remember to inject the keypair you created in Task 0). Choose the default option "Create New Volume" and choose no for "Delete Volume on Instance Delete" (default). 
 2.	Assign a floating IPs to the instance.
 3.	Access the instance using a SSH client (or if you are using Windows, using Putty) and install the program “cowsay”. Also create a file in the home directory. 
-4.	Open port 4567 on the instance.
+4.	Create a new security group, and use it to open port 4567 on the instance (attach the security group to the instance). 
 5. 	Locate the volume that has been created to back your instance. 
 6.	Terminate the instance. 
 7. 	Boot a new instance by booting it from from the volume that was created for your previous instance.
