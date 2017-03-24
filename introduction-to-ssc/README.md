@@ -72,8 +72,7 @@ The OpenStack software helps you create/import keys, and will make sure that you
 
 1.	Create a volume of size 1GB.
 2.	Attach your newly created volume to your instance.
-3.	Access the volume and copy a file to the attached volume (hint, you will need to format and mount the volume).
-4.	Modify the size of the volume created in step 1.
+3.	Access the volume from your intance and copy a file to the attached volume (hint, you will need to format and mount the volume). Here is a good tutorial: https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux_OpenStack_Platform/2/html/Getting_Started_Guide/ch16s03.html
 
 ### Questions:
 
@@ -93,7 +92,7 @@ The OpenStack software helps you create/import keys, and will make sure that you
 5.	Find out the unique ID of the external network.
 6.	What is the name of the OpenStack service handling Networks?
  
-## Task-4: Object Storage 
+## Task 4: Object Storage 
 
 1.	Find out the public url of the Container "SNIC-Workshop".
 2.	Download the object NIST.pdf from the Horizon dashboard.
