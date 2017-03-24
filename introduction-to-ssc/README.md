@@ -78,11 +78,9 @@ The OpenStack software helps you create/import keys, and will make sure that you
 ### Questions:
 
 1.	What is the name of the OpenStack service providing volumes?
-2.	What is the technology used to provide volumes in OpenStack? Is it RAID or LVM?
-3.	What is LVM? Explain the advantage(s) of using LVM?
 4.	Can one volume be attached to multiple instances or vice versa?
 5.	Explain the main difference between Ephemeral Storage and Block-Storage. What are the major use-cases for the different storage types?
-6.	Does your VM have ephemeral storage?
+6.	What is Ephemeral storage? Does your VM have ephemeral storage?
 
 ## Task 3: Network 
 
