@@ -224,7 +224,7 @@ You will have to open up for your IPv6 traffic in the security groups, you will 
 
 So if you've previously opened a rule for SSH over IPv4 we will need to add another rule for SSH over IPv6.
 
-## Connecting to your instace
+## Connecting to your instance
 Once all the above steps has been verified and configured you should now be able to connect to your instance through i.e. SSH.
 
 ```
