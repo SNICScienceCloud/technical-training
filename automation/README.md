@@ -29,8 +29,8 @@ Please follow the instructions, execute the tasks and answer the related questio
 ### Important links:
 
 1.	Information page: http://cloud.snic.se
-2.	User Guide: http://www.uppmax.uu.se/smog-user-guide
-3.	Dashboard: http://horizon.cloud.snic.se
+2.	User Guide: https://docs.openstack.org/horizon/pike/user/ , https://docs.openstack.org/python-novaclient/pike/
+3.	SNIC Science Cloud (SSC): https://cloud.snic.se
 
 Good Luck!
 
@@ -41,16 +41,22 @@ Install Openstack libraries on your local machine,
 1.	Goto http://docs.openstack.org/cli-reference/common/cli_install_openstack_command_line_clients.html
 and download the client tools and API for OpenStack. 
 2.	Download the Runtime Configuration (RC) file from the SSC site (Project->Compute->Access & Security->API Access->Download OpenStack RC File).
-3.	Confirm that your RC file have following enviroment variables:
-````bash	
+3. Confirm that your RC file have following enviroment variables:
+
+```bash	
+
 export OS_USER_DOMAIN_NAME="Default"
 export OS_IDENTITY_API_VERSION="3"
 export OS_PROJECT_DOMAIN_NAME="Default"
 ```
+
 4.	Set the environment variables by sourcing the RC-file:
-```bash
+
+```bash 
+
 source <project_name>_openrc.sh
 ```
+
 
 ### Questions:
 
@@ -88,9 +94,13 @@ The following link provides an introduction to Cloudinit
 https://help.ubuntu.com/community/CloudInit
 
 In this task you will prepare a single instance to install packages and start a web-service “cowsay” on the instance.  The configuration is done by CloudInit package. Run the code, It will prepare the instance at boot time. Once the instance will be running, Test that things are working by executing (from your client)
+
 ```bash
+
 curl -i http://<your_public_ip>:5000/cowsay/api/v1.0/saysomething
+
 ```
+
 If you are using Windows, use a Linux VM or install a cURL client for Windows.
  
 ### Questions:
@@ -118,8 +128,11 @@ copy the “ansible-spark” directory to the ansible-node. Run the “install_a
 3.	Make sure you can login to the machines. Also check that the user account has the “sudo” privileges.
 4.	Open the ““/home/ubuntu/spark/hosts” file and fill the private IP addresses of the nodes.  
 5.	Goto “/home/ubuntu/spark” directory and execute the following command:
+
 ```bash
-ansible-playbook -i hosts -s playbooks/spark-deployment.yml   
+
+ansible-playbook -i hosts -s playbooks/spark-deployment.yml   
+
 ```
 
 The complete deployment will take approximately 20 to 30 minutes. Once the installation is finished you can check the cluster status using the following URL: 
@@ -142,9 +155,13 @@ In this task you will create a cluster of two machines using the Heat engine. He
 2.	Generate a SSH key-pair, # ssh-keygen –t rsa
 3.	Replace “<ADD-CLUSTER’s-PUBLIC-KEY>” with the public part of the generated key pair. Replace it for both of the instances.
 4.	Run the command
+
 ```bash
+
 heat stack-create stack_with_init_script -f ssc-test-stack.yml
+ 
 ```
+
 5.	Open the SSC dashboard and click on the Orchestration and check the status of your stack.  
  
 ### Questions:
