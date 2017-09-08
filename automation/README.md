@@ -56,7 +56,13 @@ export OS_PROJECT_DOMAIN_NAME="Default"
 
 source <project_name>_openrc.sh
 ```
+5. Run the following commands and explain the output:
 
+```bash
+
+openstack server list
+openstack image list
+```
 
 ### Questions:
 
