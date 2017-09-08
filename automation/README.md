@@ -64,7 +64,7 @@ source <project_name>_openrc.sh
 2.	Explain how the communication works in OpenStack?
 3.	Can we use EC2 and S3 APIs to communicate with OpenStack?
 
-Task-1: Resource provisioning using CLIs and APIs
+##Task-1: Resource provisioning using CLIs and APIs
 
 Use the command-line interface (CLI) tools as well as the python APIs (example coode is available in OpenStack-API directory) to achieve following tasks: 
 
