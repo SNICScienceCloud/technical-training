@@ -193,4 +193,4 @@ Start two unprivileged containers with the following parameters:
 2.	How does LXC compare to other popular container technologies such as Docker?  
 
 ## Where to go from here? 
-Why not check out how to [use Heat to deploy a Kubernetes cluster in SSC](https://github.com/SNICScienceCloud/catalystcloud-orchestration/tree/config-for-ssc/hot/ubuntu-14.04/kubernetes)? 
+Why not check out how to [KubeNow based Kubernetes cluster](https://github.com/kubenow/KubeNow)? 
