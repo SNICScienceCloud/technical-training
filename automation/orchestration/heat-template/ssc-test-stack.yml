@@ -60,6 +60,8 @@ resources:
         - 130.238.164.6 
         - 130.238.4.133 
         - 130.238.7.10
+        - 130.239.1.90
+        - 129.16.1.53
   router:
     type: OS::Neutron::Router
     properties:
