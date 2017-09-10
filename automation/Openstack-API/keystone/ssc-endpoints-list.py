@@ -5,9 +5,10 @@ keystone = ksclient.Client(auth_url=env['OS_AUTH_URL'],
                            username=env['OS_USERNAME'],
                            password=env['OS_PASSWORD'],
                            project_name=env['OS_PROJECT_NAME'],
-                           user_domain_name=env['OS_USER_DOMAIN_NAME'],
+                           project_domain_name=env['OS_USER_DOMAIN_NAME'],
+                           project_id=env['OS_PROJECT_ID'],
                            version=env['OS_IDENTITY_API_VERSION'],
-                           project_domain_name=env['OS_PROJECT_DOMAIN_NAME'],
+                           user_domain_name=env['OS_USER_DOMAIN_NAME'],
                            region_name=env['OS_REGION_NAME'])
 
 endpoints = keystone.service_catalog.get_endpoints()
