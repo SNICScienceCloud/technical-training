@@ -193,4 +193,4 @@ Start two unprivileged containers with the following parameters:
 2.	How does LXC compare to other popular container technologies such as Docker?  
 
 ## Where to go from here? 
-Why not check out how to [KubeNow based Kubernetes cluster](https://github.com/kubenow/KubeNow)? 
+Why not check out how to [create Kubernetes cluster using KubeNow](https://github.com/kubenow/KubeNow)? 
