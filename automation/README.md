@@ -45,9 +45,9 @@ and download the client tools and API for OpenStack.
 
 ```bash	
 
-export OS_USER_DOMAIN_NAME="Default"
+export OS_USER_DOMAIN_NAME="snic"
 export OS_IDENTITY_API_VERSION="3"
-export OS_PROJECT_DOMAIN_NAME="Default"
+export OS_PROJECT_DOMAIN_NAME="snic"
 ```
 
 4.	Set the environment variables by sourcing the RC-file:
