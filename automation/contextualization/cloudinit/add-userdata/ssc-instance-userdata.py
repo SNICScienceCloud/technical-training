@@ -8,10 +8,11 @@ import keystoneclient.v3.client as ksclient
 from keystoneauth1 import loading
 from keystoneauth1 import session
 
-flavor = "m1.small" 
+flavor = "ssc.small" 
 private_net = None
 floating_ip_pool_name = None
 floating_ip = None
+image_name = None
 
 loader = loading.get_plugin_loader('password')
 
@@ -27,11 +28,12 @@ sess = session.Session(auth=auth)
 nova = client.Client('2.1', session=sess)
 print "user authorization completed."
 
-image = nova.images.find(name="Ubuntu-16.04")
+image = nova.glance.find_image(image_name)
+
 flavor = nova.flavors.find(name=flavor)
 
 if private_net != None:
-    net = nova.networks.find(label=private_net)
+    net = nova.neutron.find_network(private_net)
     nics = [{'net-id': net.id}]
 else:
     sys.exit("private-net not defined.")
@@ -43,17 +45,8 @@ if os.path.isfile(cfg_file_path):
     userdata = open(cfg_file_path)
 else:
     sys.exit("cloud-cfg.txt is not in current working directory")
-    
-secgroup = nova.security_groups.find(name="default")
-secgroups = [secgroup.id]
 
-#floating_ip = nova.floating_ips.create(nova.floating_ip_pools.list()[0].name)
-
-if floating_ip_pool_name != None: 
-    floating_ip = nova.floating_ips.create(floating_ip_pool_name)
-else: 
-    sys.exit("public ip pool name not defined.")
-
+secgroups = ['default']
 
 print "Creating instance ... "
 instance = nova.servers.create(name="vm1", image=image, flavor=flavor, userdata=userdata, nics=nics,security_groups=secgroups)
@@ -68,10 +61,3 @@ while inst_status == 'BUILD':
     inst_status = instance.status
 
 print "Instance: "+ instance.name +" is in " + inst_status + "state"
-
-if floating_ip.ip != None: 
-    instance.add_floating_ip(floating_ip)
-    print "Instance booted! Name: " + instance.name + " Status: " +instance.status+ ", floating IP attached " + floating_ip.ip
-else:
-    print "Instance booted! Name: " + instance.name + " Status: " +instance.status+ ", floating IP missing"
-
