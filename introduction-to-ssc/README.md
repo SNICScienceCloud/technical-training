@@ -42,7 +42,7 @@ The OpenStack software helps you create/import keys, and will make sure that you
 
 ## Task 1: Provisioning a Virtual Machine
 
-1.	Start an instance by booting an image of Ubuntu 16.04 with 2 VCPUs (remember to inject the keypair you created in Task 0). Choose the default option "Create New Volume" and choose no for "Delete Volume on Instance Delete" (default). 
+1.	"Launch" an instance by booting an image of Ubuntu 16.04 with 2 VCPUs (remember to inject the keypair you created in Task 0). Choose the default option "Create New Volume" and choose no for "Delete Volume on Instance Delete" (default). 
 2.	Assign a floating IPs to the instance.
 3.	Access the instance using a SSH client (or if you are using Windows, using Putty) and install the program “cowsay”. Also create a file in the home directory. 
 4.	Create a new security group, and use it to open port 4567 on the instance (attach the security group to the instance). 
@@ -131,7 +131,7 @@ if __name__ == '__main__':
 Run:
 
 ```bash
-# python app.py
+# python cowsay-app.py
 ```
 It will start a webserver on you VM.
 
