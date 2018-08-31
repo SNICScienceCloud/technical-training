@@ -47,18 +47,18 @@ The OpenStack software helps you create/import keys, and will make sure that you
 3.	Create a new security group, and use it to open port 22 on the instance (add the rule to the securoty group, then attach the security group to the instance). 
 4.	Access the instance using a SSH client (or if you are using Windows, using Putty) and install the program “cowsay”. Also create a file in the home directory. To ssh to the instance on Linux: ssh -i yourkey.pem ubuntu@<floating-ip>
 5. 	Locate the volume that has been created to back your instance and change its name. 
-6.	Terminate the instance. 
+6.	delete the instance. 
 7. 	Create a new instance by booting it from from the volume that was created for your previous instance.
-8.	Access the VM. Is the file you created still there? 
-9.    Terminate the VM.
-10. Create a snapshot of the volume. 
-11. Boot a new instance from the volume snapshot. Access the instance. Is the "cowsay" program still installed? 
-12.  Terminate the instance, delete the volume snapshot and delete the volume. 
+8.	Access the instance. Is the file you created still there? 
+9.	delete the instance.
+10.	Create a snapshot of the volume. 
+11.	Boot a new instance from the volume snapshot. Access the instance. Is the "cowsay" program still installed? 
+12.	delete the instance, delete the volume snapshot and delete the volume. 
 
 ### Questions:
 
 1.	What is the difference between the private IP and the floating IP that is attached to the instance?
-2.	Can you access the Internet from the VM without assigning a floating IP to the machine?
+2.	Can you access the Internet from the instance without assigning a floating IP to the machine?
 3.	What is the difference between image, instance and snapshot?
 4.	What is the name of the OpenStack service responsible for providing the :
 	a.	Image Service
@@ -81,7 +81,7 @@ With a basic understanding of instance provisioning, please review the SSC user 
 1.	What is the name of the OpenStack service providing volumes?
 4.	Can one volume be attached to multiple instances or vice versa?
 5.	Explain the main difference between Ephemeral Storage and Block-Storage. What are the major use-cases for the different storage types?
-6.	What is Ephemeral storage? Does your VM have ephemeral storage?
+6.	What is Ephemeral storage? Does your instance have ephemeral storage?
 
 ## Task 3: Network 
 
@@ -90,7 +90,7 @@ With a basic understanding of instance provisioning, please review the SSC user 
 1.	Explain the picture in the tab “Network Topology”
 2.	What is the subnet used by the Tenant?
 3.	What is the role of the router?
-4.	Explain the path of the traffic of the VM to the Internet?
+4.	Explain the path of the traffic of the instance to the Internet?
 5.	Find out the unique ID of the external network.
 6.	What is the name of the OpenStack service handling Networks?
  
@@ -98,7 +98,7 @@ With a basic understanding of instance provisioning, please review the SSC user 
 
 1.	Find out the public url of the Container "SNIC-Workshop".
 2.	Download the object NIST.pdf from the Horizon dashboard.
-3.	From your VM, download NIST.pdf using "curl"
+3.	From your instance, download NIST.pdf using "curl"
 4.	Try to create a container named "testcontainer", did it work? If not, can you see the problem?
  
 ### Questions:
@@ -110,7 +110,7 @@ With a basic understanding of instance provisioning, please review the SSC user 
 ## Task-5: Cowsay as a Service
 
 In this task you will deploy a simple service to the benefit to the world. Access
-your VM and start by installing the program “cowsay” (use ‘apt-get’). Create a file cowsay-app.py and paste the following code in the file.
+your instance and start by installing the program “cowsay” (use ‘apt-get’). Create a file cowsay-app.py and paste the following code in the file.
 
 ```bash
 from flask import Flask, jsonify
@@ -135,7 +135,7 @@ Run:
 ```bash
 # python cowsay-app.py
 ```
-It will start a webserver on you VM.
+It will start a webserver on your instance.
 
 If you get any messages about missing packages, just go ahead and install them using “pip” (a Python package management system).
 
@@ -145,5 +145,5 @@ Run:
 ```bash
 # curl -i http://<your_public_ip>:5000/cowsay/api/v1.0/saysomething
 ```
-If you are using Windows, use a Linux VM or install a cURL client for Windows.
+If you are using Windows, use a Linux instance or install a cURL client for Windows.
 
