@@ -182,26 +182,26 @@ This task will introduce you to Linux containers. There are different technologi
 
 #### Step-1: Install Docker on your VM.
 
-0 - Switch to the root user.
+0 - Switch to the root user:
 ```bash
 > sudo bash
 ```
 
-1 - First, add the GPG key for the official Docker repository to the system.
+1 - First, add the GPG key for the official Docker repository to the system:
 ```bash
 # curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
 
-2 - Add the Docker repository to APT sources.
+2 - Add the Docker repository to APT sources:
 ```bash
 # add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 ```
 
-3 - Update the package database with the Docker packages from the newly added repo.
+3 - Update the package database with the Docker packages from the newly added repo:
 ```bash
 # apt-get update
 ```
-4 - Install Docker.
+4 - Install Docker:
 ```bash
 # apt-get install -y docker-ce
 ```
@@ -222,13 +222,14 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-o
 ```bash
 # cd container
 ```
-2 - Run the docker build 
+2 - Execute the docker build and run commands 
 ```bash
 # docker build -t cowsay:latest .
 ```
 ```bash
 # docker run -it cowsay
 ```
+Or
 ```bash
 # docker run -d -p 5000:5000  cowsay
 ```
