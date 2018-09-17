@@ -180,7 +180,7 @@ heat stack-create stack_with_init_script -f ssc-test-stack.yml
 
 This task will introduce you to Linux containers. There are different technologies available but in this Lab, we will focus on Docker containers. Your task is to build and run CSaaS service using Docker containers.
 
-# Step-1: Install Docker on your VM.
+#### Step-1: Install Docker on your VM.
 
 0 - Switch to the root user.
 ```bash
@@ -216,7 +216,7 @@ For more information visit:
 http://docker.com 
 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
  
-Step - 2: Use the Dockerfile available in the repository (container directory) and build your own container. 
+#### Step - 2: Use the Dockerfile available in the repository (container directory) and build your own container. 
 
 1 - Go to the container directory 
 ```bash
@@ -233,7 +233,7 @@ Step - 2: Use the Dockerfile available in the repository (container directory) a
 # docker run -d -p 5000:5000  cowsay
 ```
 
-Step - 3: Test that service is available by executing (from your client)
+#### Step - 3: Test that service is available by executing (from your client)
 ```bash
 $ curl -i http://<your_public_ip>:5000/cowsay/api/v1.0/saysomething  
 ```
