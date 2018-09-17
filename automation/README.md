@@ -239,12 +239,12 @@ $ curl -i http://<your_public_ip>:5000/cowsay/api/v1.0/saysomething
 
 ### Questions:
 
-1 - In what category of virtualization do containers fall?
-2 - What are the other framework names that provide container technology. Write at least two name. 
-3 - Explain the provided Dockerfile. What does it do? How does it work? Write a brief description of each line in the Dockerfile.    
-4 - Explain the commands used in Step-2-2. Write a brief description of each command.
-5 - What is dockerhub? Write a brief description of how can we use dockerhub for our newly build CSaaS Container?   
-6 - Write a CloudInit script that contextualize a VM based on the steps (Step-1 and 2) mentioned in this task.
+1. In what category of virtualization do containers fall?
+2. What are the other framework names that provide container technology. Write at least two name. 
+3. Explain the provided Dockerfile. What does it do? How does it work? Write a brief description of each line in the Dockerfile.    
+4. Explain the commands used in Step-2-2. Write a brief description of each command.
+5. What is dockerhub? Write a brief description of how can we use dockerhub for our newly build CSaaS Container?   
+6. Write a CloudInit script that contextualize a VM based on the steps (Step-1 and 2) mentioned in this task.
 
 ## Where to go from here? 
 Why not check out how to [create Kubernetes cluster using KubeNow](https://github.com/kubenow/KubeNow)? 
