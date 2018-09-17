@@ -182,26 +182,26 @@ This task will introduce you to Linux containers. There are different technologi
 
 # Step-1: Install Docker on your VM.
 
-0 - Switch to root user
+0 - Switch to the root user.
 ```
 > sudo bash
 ```
 
-1 - First, add the GPG key for the official Docker repository to the system:
+1 - First, add the GPG key for the official Docker repository to the system.
 ```
 # curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
 
-2 - Add the Docker repository to APT sources:
+2 - Add the Docker repository to APT sources.
 ```
 # add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 ```
 
-3 - Update the package database with the Docker packages from the newly added repo:
+3 - Update the package database with the Docker packages from the newly added repo.
 ```
 # apt-get update
 ```
-4 -  install Docker:
+4 - Install Docker.
 ```
 # apt-get install -y docker-ce
 ```
@@ -211,23 +211,40 @@ This task will introduce you to Linux containers. There are different technologi
 # systemctl status docker
 ```
 
+For more information visit: 
+http://docker.com 
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
+ 
+Step - 2: Use the Dockerfile available in the repository (container directory) and build your own container. 
 
+1 - Go to the container directory 
+```
+# cd container
+```
+2 - Run the docker build 
+```
+# docker build -t cowsay:latest .
+```
+```
+# docker run -it cowsay
+```
+```
+# docker run -d -p 5000:5000  cowsay
+```
 
-
-This task will introduce you to Linux containers. There are different technologies available but in this lab we will focus on LXC containers. Follow the instructions available on the following page: 
-
-[https://linuxcontainers.org/lxc/getting-started/](https://linuxcontainers.org/lxc/getting-started/)
-
-Start two unprivileged containers with the following parameters: 
-
-1.	Distribution: Ubuntu, Release: trusty, Architecture: amd64
-2.	Distribution: Ubuntu, Release: trusty, Architecture: i386
-
+Step - 3: Test that service is available by executing (from your client)
+```
+$ curl -i http://<your_public_ip>:5000/cowsay/api/v1.0/saysomething  
+```
 
 ### Questions:
 
-1.	In what category of virtualization does containers fall?
-2.	How does LXC compare to other popular container technologies such as Docker?  
+1 - In what category of virtualization do containers fall?
+2 - What are the other framework names that provide container technology. Write at least two name. 
+3 - Explain the provided Dockerfile. What does it do? How does it work? Write a brief description of each line in the Dockerfile.    
+4 - Explain the commands used in Step-2-2. Write a brief description of each command.
+5 - What is dockerhub? Write a brief description of how can we use dockerhub for our newly build CSaaS Container?   
+6 - Write a CloudInit script that contextualize a VM based on the steps (Step-1 and 2) mentioned in this task.
 
 ## Where to go from here? 
 Why not check out how to [create Kubernetes cluster using KubeNow](https://github.com/kubenow/KubeNow)? 
