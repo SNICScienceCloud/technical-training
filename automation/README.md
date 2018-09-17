@@ -183,57 +183,58 @@ This task will introduce you to Linux containers. There are different technologi
 # Step-1: Install Docker on your VM.
 
 0 - Switch to the root user.
-```
+```bash
 > sudo bash
 ```
 
 1 - First, add the GPG key for the official Docker repository to the system.
-```
+```bash
 # curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
 
 2 - Add the Docker repository to APT sources.
-```
+```bash
 # add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 ```
 
 3 - Update the package database with the Docker packages from the newly added repo.
-```
+```bash
 # apt-get update
 ```
 4 - Install Docker.
-```
+```bash
 # apt-get install -y docker-ce
 ```
 
 5 - (Optional) Docker should now be installed, the daemon started, and the process enabled to start on boot. Check that it's running:
-```
+```bash
 # systemctl status docker
 ```
 
 For more information visit: 
+
 http://docker.com 
 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
  
 Step - 2: Use the Dockerfile available in the repository (container directory) and build your own container. 
 
 1 - Go to the container directory 
-```
+```bash
 # cd container
 ```
 2 - Run the docker build 
-```
+```bash
 # docker build -t cowsay:latest .
 ```
-```
+```bash
 # docker run -it cowsay
 ```
-```
+```bash
 # docker run -d -p 5000:5000  cowsay
 ```
 
 Step - 3: Test that service is available by executing (from your client)
-```
+```bash
 $ curl -i http://<your_public_ip>:5000/cowsay/api/v1.0/saysomething  
 ```
 
