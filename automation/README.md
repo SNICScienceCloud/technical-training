@@ -180,26 +180,39 @@ heat stack-create stack_with_init_script -f ssc-test-stack.yml
 
 This task will introduce you to Linux containers. There are different technologies available but in this Lab, we will focus on Docker containers. Your task is to build and run CSaaS service using Docker containers.
 
-#Step-1: Install Docker on your VM.
+# Step-1: Install Docker on your VM.
 
-```0 - Switch to root user
+0 - Switch to root user
+```
 > sudo bash
+```
 
 1 - First, add the GPG key for the official Docker repository to the system:
+```
 # curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+```
 
 2 - Add the Docker repository to APT sources:
+```
 # add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+```
 
 3 - Update the package database with the Docker packages from the newly added repo:
+```
 # apt-get update
-
+```
 4 -  install Docker:
+```
 # apt-get install -y docker-ce
+```
 
 5 - (Optional) Docker should now be installed, the daemon started, and the process enabled to start on boot. Check that it's running:
+```
 # systemctl status docker
 ```
+
+
+
 
 This task will introduce you to Linux containers. There are different technologies available but in this lab we will focus on LXC containers. Follow the instructions available on the following page: 
 
