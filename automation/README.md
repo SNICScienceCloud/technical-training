@@ -164,8 +164,7 @@ In this task you will create a cluster of two machines using the Heat engine. He
 
 ```bash
 
-heat stack-create stack_with_init_script -f ssc-test-stack.yml
- 
+openstack stack create stack_with_init_script -f ‘yaml’ -t ssc-test-stack.yml 
 ```
 
 5.	Open the SSC dashboard and click on the Orchestration and check the status of your stack.  
