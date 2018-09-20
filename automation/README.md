@@ -36,7 +36,7 @@ Good Luck!
 
 ## Task-0: Setting the environment for API access
 
-Install Openstack libraries on your local machine,
+Install Openstack libraries on your test virtual machine,
  
 1.	Goto https://docs.openstack.org/install-guide/environment-packages-ubuntu.html , http://docs.openstack.org/cli-reference/common/cli_install_openstack_command_line_clients.html
 and download the client tools and API for OpenStack. 
