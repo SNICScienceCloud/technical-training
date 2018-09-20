@@ -34,7 +34,7 @@ Please follow the instructions, execute the tasks and answer the related questio
 
 Good Luck!
 
-## Task-0: Setting the environement for API access
+## Task-0: Setting the environment for API access
 
 Install Openstack libraries on your local machine,
  
