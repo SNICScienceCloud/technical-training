@@ -101,6 +101,13 @@ https://help.ubuntu.com/community/CloudInit
 
 In this task you will prepare a single instance to install packages and start a web-service “cowsay” on the instance.  The configuration is done by CloudInit package. Run the code, It will prepare the instance at boot time. Once the instance will be running, Test that things are working by executing (from your client)
 
+In this task, you will prepare a script that automatically installs packages and starts the web-service “cowsay” on a single instance.
+The configuration is done by the CloudInit package, read and try to understand *cloud-cfg.txt* that you can find in the “contextualization” folder.
+
+The file *ssc-instance-user-data.py* , in the same folder is used to start the instance. Open the file, try to understand it.
+
+The python file is not complete, make the necessary changes, run the file and see if your instance is created. Test that the server is working by executing following curl command:
+
 ```bash
 
 curl -i http://<your_public_ip>:5000/cowsay/api/v1.0/saysomething
