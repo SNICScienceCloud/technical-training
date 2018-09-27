@@ -17,7 +17,6 @@ parameters:
     label: Image name or ID
     description: Image to be used for compute instance
     default: 40e1794e-6471-4c9b-9327-2b762ca0c135
-Type
 
   flavor:
     type: string
@@ -35,7 +34,7 @@ Type
     type: string
     label: Public network name or ID
     description: Public network with floating IP addresses.
-    default: SNIC 2018/10-30 Internal IPv4 Network
+    default: Public External IPv4 Network
 
 # Resource allocation
 resources:
