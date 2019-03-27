@@ -42,7 +42,7 @@ The OpenStack software helps you create/import keys, and will make sure that you
 
 ## Task 1: Provisioning a Virtual Machine
 
-1.	"Launch" an instance by booting an image of Ubuntu 18.04 with 1 VCPUs (remember to inject the keypair you created in Task 0). Choose the default option "Create New Volume" and choose "yes" for "Delete Volume on Instance Delete". 
+1.	"Launch" an instance by booting an image of Ubuntu 18.04 with 1 VCPUs (remember to inject the keypair you created in Task 0). Choose the default option "Create New Volume" and choose "no" for "Delete Volume on Instance Delete". 
 2.	Assign a floating IP to the instance.
 3.	Create a new security group, and use it to open port 22 on the instance (add the rule to the security group, then attach the security group to the instance). 
 4.	Access the instance using a SSH client and install the program “cowsay”. Also create a file in the home directory. To ssh to the instance on Linux: ssh -i yourkey.pem ubuntu@<floating-ip>
