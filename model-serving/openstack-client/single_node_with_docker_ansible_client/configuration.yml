@@ -71,8 +71,12 @@
 
    - name: Building container
      become: true
-     command: docker build -f /technical-training/model-serving/ci_cd/production_server/Dockerfile .
+     shell: docker build .
+     args: 
+      chdir: /technical-training/model-serving/ci_cd/production_server
 
    - name: Running containers
      become: true
-     command: docker-compose -f /technical-training/model-serving/ci_cd/production_server/docker-compose.yml up -d   
+     shell: docker-compose up -d 
+     args: 
+      chdir: /technical-training/model-serving/ci_cd/production_server  
