@@ -10,17 +10,20 @@
      when: hostvars[item].ansible_default_ipv4.address is defined
      with_items: "{{groups['all']}}"
      become: true
-     become_user: root 
      
    - name: Set hostname
      hostname: name="{{inventory_hostname}}"
      become: true
-     become_user: root
 
    - name: apt update
      apt: update_cache=yes upgrade=dist
      become: true
-     become_user: root
+  
+   - name: Download git repository
+     become: true
+     git:
+      repo: 'https://github.com/SNICScienceCloud/technical-training.git'
+      dest: /technical-training 
          
 - hosts: prod_server
  
@@ -35,35 +38,29 @@
       - ca-certificates
       - curl
       - software-properties-common
-     become: true
-     become_user: root  
+     become: true  
 
    - name: apt update
      apt: update_cache=yes upgrade=dist
      become: true
-     become_user: root
 
    - name: Add Docker repository key
      apt_key:
       url: https://download.docker.com/linux/ubuntu/gpg
       state: present
      become: true
-     become_user: root
 
    - name: Add Docker repository 
      command: add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
      become: true
-     become_user: root
 
    - name: apt update
      apt: update_cache=yes upgrade=dist
      become: true
-     become_user: root
 
    - name: Install Docker  
      apt: pkg=docker-ce state=present update_cache=true allow_unauthenticated=yes
      become: true
-     become_user: root
 
    - name: Download docker-compose 
      become: yes
@@ -72,3 +69,10 @@
       dest: /usr/local/bin/docker-compose
       mode: +x 
 
+   - name: Building container
+     become: true
+     command: docker build -f /technical-training/model-serving/ci_cd/production_server/Dockerfile .
+
+   - name: Running containers
+     become: true
+     command: docker-compose -f /technical-training/model-serving/ci_cd/production_server/docker-compose.yml up -d   
