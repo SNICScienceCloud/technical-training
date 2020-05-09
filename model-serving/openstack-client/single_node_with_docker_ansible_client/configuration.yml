@@ -18,7 +18,9 @@
    - name: apt update
      apt: update_cache=yes upgrade=dist
      become: true
-  
+     async: 300
+     poll: 5 
+
    - name: Download git repository
      become: true
      git:
@@ -76,19 +78,23 @@
      get_url:        
       url: "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-{{ansible_system}}-{{ansible_architecture}}"
       dest: /usr/local/bin/docker-compose
-      mode: +x 
+      mode: +x  
 
    - name: Building container
      become: true
      shell: docker build .
      args: 
       chdir: /technical-training/model-serving/ci_cd/production_server
+     async: 300
+     poll: 5
 
    - name: Running containers
      become: true
      shell: docker-compose up -d 
      args: 
       chdir: /technical-training/model-serving/ci_cd/production_server 
+     async: 300
+     poll: 5
 
 - hosts: dev_server
   
@@ -104,3 +110,5 @@
      become: true
      pip: 
       name: keras, tensorflow, numpy
+     async: 300
+     poll: 5 
