@@ -79,4 +79,19 @@
      become: true
      shell: docker-compose up -d 
      args: 
-      chdir: /technical-training/model-serving/ci_cd/production_server  
+      chdir: /technical-training/model-serving/ci_cd/production_server 
+
+- hosts: dev_server
+  
+  vars_files:
+   - setup_var.yml
+
+  tasks:
+   - name: Extra packages
+     apt: pkg=python3-pip state=latest update_cache=true  
+     become: true
+
+   - name: Install ML packages
+     become: true
+     pip: 
+      name: keras, tensorflow, numpy
