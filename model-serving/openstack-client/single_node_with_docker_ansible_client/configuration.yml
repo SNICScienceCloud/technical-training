@@ -24,7 +24,16 @@
      git:
       repo: 'https://github.com/SNICScienceCloud/technical-training.git'
       dest: /technical-training 
-         
+      
+   - name: Change ownership of a directory
+     become: true
+     file:
+      path: /technical-training
+      state: directory
+      recurse: yes
+      owner: appuser
+      group: appuser
+
 - hosts: prod_server
  
   vars_files:
