@@ -127,7 +127,7 @@ Welcome page `http://<PRODUCTION-SERVER-IP>:5100`. Predictions page `http://<PRO
 
 1. Explain how the application works? Please keep your answer breif to one paragraph. 
 
-2. Write at least four drabacks of the deployment stratagy adopted in the task-1. 
+2. What are the drawbacks of the currently deployment stratagy adopted in the task-1? Write at least four drawbacks.
 
-3. Currently the contextualization process takes 10 to 15 minutes. Suggest a solution to reduce the deployment time.   
+3. Currently the contextualization process takes 10 to 15 minutes. How can we reduce the deployment time?   
 
