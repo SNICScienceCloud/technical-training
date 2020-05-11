@@ -89,14 +89,20 @@ Open different files and try to understand the application's structure.
 3. Goto the `technical-training/model-serving/openstack-client/single_node_without_docker_client/` directory. This is the code that we will run to contextualize our production server. The code is based on the following two files:
 
 ```console
-cloud-cfg.txt
-start_instance.py
+- CloudInit configuration file  
+  -- cloud-cfg.txt
+- OpenStack python code
+  -- start_instance.py
 ```
 
 Open the files and try to understand the steps. _You need to setup variable values in the start_instance.py script._ 
 
 -------------
-In order to run this code, you need to have OpenStack API environment running. Follow the instructions available on the following links: 
+In order to run this code, you need to have OpenStack API environment running. 
+
+_NOTE that Openstack APIs are only need to be installed on the client VM_. 
+
+Follow the instructions available on the following links: 
 
 i. Goto https://docs.openstack.org/install-guide/environment-packages-ubuntu.html , http://docs.openstack.org/cli-reference/common/cli_install_openstack_command_line_clients.html and download the client tools and API for OpenStack.
 
@@ -184,8 +190,10 @@ Open different files and try to understand the application's structure.
 2 - Goto the `technical-training/model-serving/openstack-client/single_node_with_docker_client/` directory. This is the code that we will run to contextualize the production server. The code is based on the following two files:
 
 ```console
-cloud-cfg.txt
-start_instance.py
+- CloudInit configuration file  
+  -- cloud-cfg.txt
+- OpenStack python code
+  -- start_instance.py
 ```
 
 Open the files and try to understand the steps. _You need to setup variable values in the start_instance.py script._ 
@@ -312,7 +320,7 @@ ssh -i ubuntu@<PRODUCTION-SERVER-IP>
 2. Goto `technical-training/model-serving/ci_cd` directory. This directory contains the following two sub-directories 
 
 ```
-production server 
+/production server 
  - Flask Application based frontend 
     -- app.py
     -- static
@@ -324,7 +332,7 @@ production server
     -- model.h5
     -- model.json
     -- pima-indians-diabetes.csv
-development server
+/development server
  - Machine learning Model and Data 
     -- model.h5
     -- model.json
@@ -335,12 +343,79 @@ development server
 
 Open different files and try to understand the application's structure. 
 
-3. Goto the `technical-training/model-serving/openstack-client/single_node_without_docker_client/` directory. This is the code that we will run to contextualize our production server. The code is based on the following two files:
+3. Goto the `technical-training/model-serving/openstack-client/single_node_with_docker_ansible_client` directory. This is the code that we will run to contextualize our production server. The code is based on the following files:
 
 ```console
-cloud-cfg.txt
-start_instance.py
+- CloudInit files 
+  -- prod-cloud-cfg.txt
+  -- dev-cloud-cfg.txt
+- OpenStack code  
+  -- start_instance.py
+- Ansible files
+  -- setup_var.yml
+  -- configuration.yml  
 ```
+
+The client code will start two VMs and uisng Ansible orchestration environment it will contextualize both of the VMs simultanously. 
+
+4. Installation and configuration of Ansible on the client machine.
+
+4a. Install Ansible packages. 
+
+```console
+sudo bash
+apt-add-repository ppa:ansible/ansible
+apt update
+apt install ansible
+```
+Now we have ansible packages install. 
+
+4b. Start Production and Development servers. 
+
+```console
+python3 start_instance.py
+```
+The output will give you the internal IPs of the VMs. 
+
+```console
+user authorization completed.
+Creating instances ... 
+waiting for 10 seconds.. 
+Instance: prod_server_with_docker_6225 is in BUILD state, sleeping for 5 seconds more...
+Instance: dev_server_6225 is in BUILD state, sleeping for 5 seconds more...
+Instance: prod_server_with_docker_6225 is in ACTIVE state, sleeping for 5 seconds more...
+Instance: dev_server_6225 is in BUILD state, sleeping for 5 seconds more...
+Instance: prod_server_with_docker_6225 is in ACTIVE state ip address: 192.168.1.19
+Instance: dev_server_6225 is in ACTIVE state ip address: 192.168.1.17
+```
+Now we have two VM running with the internal IP addresses
+
+i. prod_server_with_docker_6225  -> 192.168.1.19
+ii. dev_server_6225 -> 192.168.1.17
+
+4c. Open the Ansible inventory file and add the IP address in that file. 
+
+```console
+nano  /etc/ansible/hosts
+```
+
+file contents
+
+```console
+[servers]
+prod_server ansible_host=<production server IP address>
+dev_server ansible_host=<development server IP address>
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+
+[prod_server]
+prod_server ansible_connection=ssh ansible_user=appuser
+
+[dev_server]
+dev_server ansible_connection=ssh ansible_user=appuser
+```
+4d.  
 
 
 
