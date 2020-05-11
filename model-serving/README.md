@@ -360,17 +360,48 @@ The client code will start two VMs and uisng Ansible orchestration environment i
 
 4. Installation and configuration of Ansible on the client machine.
 
-4a. Install Ansible packages. 
+4a. First will generate a cluster SSH key.
 
 ```console
-sudo bash
-apt-add-repository ppa:ansible/ansible
-apt update
-apt install ansible
+ssh-keygen -t rsa
 ```
-Now we have ansible packages install. 
 
-4b. Start Production and Development servers. 
+Output
+
+```console
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/ubuntu/.ssh/id_rsa): 
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/demo/.ssh/id_rsa.
+Your public key has been saved in /home/demo/.ssh/id_rsa.pub.
+The key fingerprint is:
+4a:dd:0a:c6:35:4e:3f:ed:27:38:8c:74:44:4d:93:67 demo@a
+The key's randomart image is:
++--[ RSA 2048]----+
+|          .oo.   |
+|         .  o.E  |
+|        + .  o   |
+|     . = = .     |
+|      = S = .    |
+|     o + = +     |
+|      . o + o .  |
+|           . o   |
+|                 |
++-----------------+
+```
+
+Now we have cluster ssh keys at the following location:
+
+1. Private key: /home/ubuntu/.ssh/id_rsa
+
+2. Public key: /home/ubuntu/.ssh/id_rsa.pub
+
+4c. Now we start Production and Development servers. But first open `prod-cloud-cfg.txt` delete the old key from the section `ssh_authorized_keys:` and copy the complete contents of `/home/ubuntu/.ssh/id_rsa.pub` in the section `ssh_authorized_keys:` 
+
+Repeat same step with the `dev-cloud-cfg.txt`. Delete the old key from the section `ssh_authorized_keys:` and copy the complete contents of `/home/ubuntu/.ssh/id_rsa.pub` in the section `ssh_authorized_keys:`
+
+Now run the `start_instance.py` code.
 
 ```console
 python3 start_instance.py
@@ -388,12 +419,23 @@ Instance: dev_server_6225 is in BUILD state, sleeping for 5 seconds more...
 Instance: prod_server_with_docker_6225 is in ACTIVE state ip address: 192.168.1.19
 Instance: dev_server_6225 is in ACTIVE state ip address: 192.168.1.17
 ```
-Now we have two VM running with the internal IP addresses
+Now we have two VM running with the internal IP addresses.
+
+4b. Install Ansible packages on the client machine. 
+
+```console
+sudo bash
+apt-add-repository ppa:ansible/ansible
+apt update
+apt install ansible
+```
+Now we have ansible packages install. 
 
 i. prod_server_with_docker_6225  -> 192.168.1.19
+
 ii. dev_server_6225 -> 192.168.1.17
 
-4c. Open the Ansible inventory file and add the IP address in that file. 
+4d. Open the Ansible inventory file and add the IP address in that file. 
 
 ```console
 nano  /etc/ansible/hosts
@@ -415,8 +457,19 @@ prod_server ansible_connection=ssh ansible_user=appuser
 [dev_server]
 dev_server ansible_connection=ssh ansible_user=appuser
 ```
-4d.  
 
+If you need to learn more about Ansible, following links will help you 
+
+Ansible official site 
+https://www.ansible.com/
+
+Easy installation instructions
+https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-ansible-on-ubuntu-18-04
+
+4e. Just to confirm the access premission are correctly set, access production and development server from the client VM. 
+
+```console
+ssh -i 
 
 
 ## Task-4: CI/CD using Git HOOKS 
