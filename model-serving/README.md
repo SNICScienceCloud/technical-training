@@ -362,6 +362,23 @@ The client code will start two VMs and uisng Ansible orchestration environment i
 
 4a. First will generate a cluster SSH key.
 
+First check the username you are login as 
+
+```console
+whoami
+ubuntu
+```
+
+you need to be as _ubuntu_ user. If you are _root_ user switch back to _ubuntu_ user. 
+
+Create a directory 
+
+```console
+mkdir -p /home/ubuntu/cluster-keys
+
+```
+
+
 ```console
 ssh-keygen -t rsa
 ```
@@ -370,11 +387,11 @@ Output
 
 ```console
 Generating public/private rsa key pair.
-Enter file in which to save the key (/home/ubuntu/.ssh/id_rsa): 
+Enter file in which to save the key (/home/ubuntu/.ssh/id_rsa): /home/ubuntu/cluster-keys/cluster-key
 Enter passphrase (empty for no passphrase): 
 Enter same passphrase again: 
-Your identification has been saved in /home/demo/.ssh/id_rsa.
-Your public key has been saved in /home/demo/.ssh/id_rsa.pub.
+Your identification has been saved in /home/ubuntu/cluster-keys/cluster-key.
+Your public key has been saved in /home/ubuntu/cluster-keys/cluster-key.pub.
 The key fingerprint is:
 4a:dd:0a:c6:35:4e:3f:ed:27:38:8c:74:44:4d:93:67 demo@a
 The key's randomart image is:
@@ -393,13 +410,13 @@ The key's randomart image is:
 
 Now we have cluster ssh keys at the following location:
 
-1. Private key: /home/ubuntu/.ssh/id_rsa
+1. Private key: `/home/ubuntu/cluster-keys/cluster-key`
 
-2. Public key: /home/ubuntu/.ssh/id_rsa.pub
+2. Public key: `/home/ubuntu/cluster-keys/cluster-key.pub`
 
-4c. Now we start Production and Development servers. But first open `prod-cloud-cfg.txt` delete the old key from the section `ssh_authorized_keys:` and copy the complete contents of `/home/ubuntu/.ssh/id_rsa.pub` in the section `ssh_authorized_keys:` 
+4c. Now we start Production and Development servers. But first open `prod-cloud-cfg.txt` delete the old key from the section `ssh_authorized_keys:` and copy the complete contents of `/home/ubuntu/cluster-keys/cluster-key.pub` in the section `ssh_authorized_keys:` 
 
-Repeat same step with the `dev-cloud-cfg.txt`. Delete the old key from the section `ssh_authorized_keys:` and copy the complete contents of `/home/ubuntu/.ssh/id_rsa.pub` in the section `ssh_authorized_keys:`
+Repeat same step with the `dev-cloud-cfg.txt`. Delete the old key from the section `ssh_authorized_keys:` and copy the complete contents of `/home/ubuntu/cluster-keys/cluster-key.pub` in the section `ssh_authorized_keys:`
 
 Now run the `start_instance.py` code.
 
@@ -435,7 +452,11 @@ i. prod_server_with_docker_6225  -> 192.168.1.19
 
 ii. dev_server_6225 -> 192.168.1.17
 
-4d. Open the Ansible inventory file and add the IP address in that file. 
+4d. Open the Ansible inventory file and add the IP address in that file. For this step you need to swtich to _root_ user.
+
+```console
+sudo bash
+```
 
 ```console
 nano  /etc/ansible/hosts
@@ -458,7 +479,7 @@ prod_server ansible_connection=ssh ansible_user=appuser
 dev_server ansible_connection=ssh ansible_user=appuser
 ```
 
-If you need to learn more about Ansible, following links will help you 
+If you need to learn more about Ansible, here are some useful links: 
 
 Ansible official site 
 https://www.ansible.com/
@@ -468,10 +489,193 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-an
 
 4e. Just to confirm the access premission are correctly set, access production and development server from the client VM. 
 
-```console
-ssh -i 
+First switch back to user _ubuntu_
 
+```console
+ssh -i /home/ubuntu/cluster-keys/cluster-key appuser@<PRODUCTION-SERVER-IP>
+```
+If the login is successfull, exit from the production server and repeat the step with development server 
+
+```console
+ssh -i /home/ubuntu/cluster-keys/cluster-key appuser@<DEVELOPMENT-SERVER-IP>
+```
+If the login successfull, exit from the development server. 
+
+4f. For this step you need to be login as _ubuntu_ user on the client VM. 
+
+Now we will run the Ansible script available in the `technical-training/model-serving/openstack-client/single_node_with_docker_ansible_client` directory. 
+
+```console
+ansible-playbook configuration.yml --private-key=/home/ubuntu/cluster-keys/cluster-key
+```
+The process will take 10 to 15 minutes to complete. Once the process successfully completed you have both production and development servers ready. 
+
+Attach floating IP address to the production server and access the same web page as we have in previous tasks.  
+
+---------------------------------
 
 ## Task-4: CI/CD using Git HOOKS 
 
------------------------------
+
+0 - SSH key based communication between Production and Development Servers 
+
+  - Login to Development Server 
+    
+    ```console
+    ssh -i cluster-key appuser@<DEVELOPMENT-SERVER-IP>
+    ```console
+    
+  - Generate SSH key 
+    
+    ```console
+    ssh-keygen
+    ```console
+
+  NOTE: This step will create two files, private key `/home/appuser/.ssh/id_rsa` and public key `/home/appuser/.ssh/id_rsa.pub`.
+
+  - copy contents of the public key file `/home/appuser/.ssh/id_rsa.pub` from the development server.
+
+  - Login to Production Server
+    
+    ```console
+    ssh -i cluster-key appuser@<PRODUCTION-SERVER-IP>
+    ```console
+
+  - Open file `/home/appuser/.ssh/authorized_keys` and past the contents of the public key files. 
+
+     ```console
+     nano /home/appuser/.ssh/authorized_keys
+     ``` 
+
+1 - Login to the Production Server 
+
+   ```console
+   ssh -i cluster-key appuser@<PRODUCTION-SERVER-IP> 
+   ```
+   
+ - Create a directory (it will be jump directory)
+   
+   ```console
+   pwd 
+   /home/appuser/
+   ```
+   
+   ```console
+   mkdir my_project
+
+   cd my_project
+   ``` 
+ - Here is the path to your jump directory. Double check that user `appuser` is the owner of `my_project` directory. 
+   
+   ```console
+   pwd
+    /home/appuser/my_project       
+   ```
+   
+ - Create git empty directory 
+   
+   ```console
+   git init --bare
+   ```
+   
+   Initialized empty Git repository in `/home/appuser/my_project/`
+
+ - Create a git hook `post-receive`
+ 
+  ```console
+  nano hooks/post-receive
+  ```
+File contents  
+
+```console
+#!/bin/bash
+while read oldrev newrev ref
+do
+    if [[ $ref =~ .*/master$ ]];
+    then
+        echo "Master ref received.  Deploying master branch to production..."
+        git --work-tree=/technical-training/model-serving/ci_cd/production_server --git-dir=/home/appuser/my_project checkout -f
+    else
+        echo "Ref $ref successfully received.  Doing nothing: only the master branch may be deployed on this server."
+    fi
+done
+```
+
+
+ - Change permissions
+ 
+  ```console
+  chmod +x hooks/post-receive
+  ```
+  
+ - Exit Production Server
+
+
+
+2 - login to the Development Server
+
+   ```console
+   ssh -i cluster-key appuser@<DEVELOPMENT-SERVER-IP>
+   ```
+   
+ - Create a directory
+
+   ```console
+   pwd
+     /home/appuser/
+
+   mkdir my_project
+
+   cd my_project
+   ```
+
+ - This is your development directory. Double check that user `appuser` is the owner of `my_project` directory.
+
+   ```console
+   pwd
+     /home/appuser/my_project 
+   ```
+   
+ - Create git empty directory
+
+   ```console
+   # git init
+   ```
+   
+   Initialized empty Git repository in `/home/appuser/project/.git/`
+
+ - Add files model.h5 and  model.json in `/home/appuser/project/` directory. The files are available in `/technical-training/model-serving/ci_cd/development_server/` directory. 
+
+ - Goto `/home/appuser/project` directory
+    
+ - Add files for the commit 
+   
+   ```console
+   git add .
+   ```
+   
+ - Commit files
+ 
+   ```console
+   git commit -m "new model" 
+   ```console
+   
+ - connect development server's git to production server's git. 
+
+   ```console
+   git remote add production appuser@<PRODUCTIONS-SERVER-IP>:/home/appuser/my_project
+   ```
+   
+ - Push your commits to the production server
+   
+   ```console
+   git push production master
+   
+   Delta compression using up to 2 threads.
+   Compressing objects: 100% (4/4), done.
+   Writing objects: 100% (4/4), 2.36 KiB | 2.36 MiB/s, done.
+   Total 4 (delta 0), reused 0 (delta 0)
+   remote: Master ref received.  Deploying master branch to production...
+   To 192.168.1.21:/home/appuser/my_project
+   * [new branch]      master -> master 
+   ```
