@@ -34,7 +34,7 @@ OpenStack-Client
 
 Dynamic contextualization is a process of preparing a customized computing environment at runtime. The process ranging from creating/defining user roles and permissions to updating/installing different packages. 
 
-## Task-1: Single server deployment without docker containers
+## Task-1: Single server deployment 
 
 In this task we will learn how the dynamic contextualization works using Cloudinit package. For this task we need to use OpenStack APIs to start a VM and contextualize it at run time. The contextualization process will setup following working environment: 
 
@@ -54,7 +54,7 @@ A client will send a prediction request from the frontend web server, the server
 
 ## Steps for the contextualization
 
-1 - Goto "technical-training/model-serving/single_server_without_docker/production_server/“  directory. This directory contains the code that will run on your production server. Following is the structure of the code: 
+1. Goto `technical-training/model-serving/single_server_without_docker/production_server/`  directory. This directory contains the code that will run on your production server. Following is the structure of the code: 
 
 ``` 
  - Flask Application based frontend 
@@ -72,9 +72,9 @@ A client will send a prediction request from the frontend web server, the server
 
 Open different files and try to understand the application's structure. 
 
-2 - Goto the `technical-training/model-serving/openstack-client/single_node_without_docker_client/` directory. This is the code that we will run to contextualize our production server. The code is based on following two files:
+2. Goto the `technical-training/model-serving/openstack-client/single_node_without_docker_client/` directory. This is the code that we will run to contextualize our production server. The code is based on following two files:
 
-```
+```console
 cloud-cfg.txt
 start_instance.py
 ```
@@ -90,7 +90,7 @@ ii. Download the Runtime Configuration (RC) file from the SSC site (Project->Com
 
 iii. Confirm that your RC file have following enviroment variables:
 
-```
+```console
 export OS_USER_DOMAIN_NAME="snic"
 export OS_IDENTITY_API_VERSION="3"
 export OS_PROJECT_DOMAIN_NAME="snic"
@@ -100,14 +100,14 @@ iv. Set the environment variables by sourcing the RC-file:
 
 v. The successful output of the following commands will confirm that you have the correct packages available on your VM:
 
-```
+```console
 openstack server list
 openstack image list
 ```
 
 vi. For the API communication we need following extra packages:
 
-```
+```console
 apt install python3-openstackclient
 apt install python-novaclient
 apt install python-keystoneclient
@@ -115,9 +115,9 @@ apt install python-keystoneclient
 
 ------------------
 
-Once you have setup the environment, run the following command. 
+3. Once you have setup the environment, run the following command. 
 
-` # python3 start_instance.py `
+`console # python3 start_instance.py `
 
 The command will start a new server and initiate the contextualization process. It will take approximately 10 to 15 minutes. The progress can be seen on the cloud dashboard. Once the process finish, attach a floating IP to your production server and access the webpage from your client machine. 
 
@@ -130,4 +130,105 @@ Welcome page `http://<PRODUCTION-SERVER-IP>:5100`. Predictions page `http://<PRO
 2. What are the drawbacks of the currently deployment stratagy adopted in the task-1? Write at least four drawbacks.
 
 3. Currently the contextualization process takes 10 to 15 minutes. How can we reduce the deployment time?   
+
+## Task-1: Single server deployment with Docker Containers
+
+In this task we will repeat the same deployment but with docker containers. It will create a flexible containerized deployment environment where each container has defined role. 
+
+1. Goto `technical-training/model-serving/single_server_with_docker/production_server/` directory. This directory contains the code that will run on your production server. Following is the structure of the code: 
+
+``` 
+ - Flask Application based frontend 
+    -- app.py
+    -- static
+    -- templates
+ - Celery and RabbitMQ setup
+    -- run_task.py
+    -- workerA.py
+ - Machine learning Model and Data 
+    -- model.h5
+    -- model.json
+    -- pima-indians-diabetes.csv
+ - Docker files
+    -- Dockerfile
+    -- docker-compose.yml
+```
+
+Open different files and try to understand the application's structure. 
+
+2 - Goto the `technical-training/model-serving/openstack-client/single_node_with_docker_client/` directory. This is the code that we will run to contextualize the production server. The code is based on following two files:
+
+```console
+cloud-cfg.txt
+start_instance.py
+```
+
+Open the files and try to understand the steps. _You need to setup variable values in the start_instance.py script._ 
+
+3. Run the following command. 
+
+`console # python3 start_instance.py `
+
+The command will start a new server and initiate the contextualization process. It will take approximately 10 to 15 minutes. The progress can be seen on the cloud dashboard. Once the process finish, attach a floating IP to your production server and access the webpage from your client machine. 
+
+Welcome page `http://<PRODUCTION-SERVER-IP>:5100`. Predictions page `http://<PRODUCTION-SERVER-IP>:5100/predictions`
+
+4. The next step is to test the horizontal scalability of the setup. 
+
+4a. Login to the production sever. 
+
+`console console ssh -i ubuntu@<PRODUCTION-SERVER-IP>`
+
+4b. Switch to the super user mode.
+   
+`# sudo bash`
+
+4c. Check the cluster status:
+
+```console 
+# cd /technical-training/model-serving/single_server_with_docker/production_server
+# docker-compose ps
+```
+The output will be as following:
+
+```console
+   Name                          Command               State                                             Ports                                           
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+production_server_rabbit_1     docker-entrypoint.sh rabbi ...   Up      15671/tcp, 0.0.0.0:15672->15672/tcp, 25672/tcp, 4369/tcp, 5671/tcp, 0.0.0.0:5672->5672/tcp
+production_server_web_1        python ./app.py --host=0.0.0.0   Up      0.0.0.0:5100->5100/tcp
+production_server_worker_1_1   celery -A workerA worker - ...   Up  
+```
+
+Following three containers are running on the production server: 
+
+```
+production_server_rabbit_1  -> RabbitMQ server
+production_server_web_1 -> Flask based web application
+production_server_worker_1_1 -> Celery worker 
+```
+Now we will add multiple workers in the cluster using docker commands. 
+
+4d. Currently there is one worker available. We will add two more workers. 
+
+`console # docker-compose up --scale worker_1=3 -d`
+
+4e. Check the cluster status.
+
+```console
+# docker-compose ps
+
+            Name                          Command               State                                             Ports                                           
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+production_server_rabbit_1     docker-entrypoint.sh rabbi ...   Up      15671/tcp, 0.0.0.0:15672->15672/tcp, 25672/tcp, 4369/tcp, 5671/tcp, 0.0.0.0:5672->5672/tcp
+production_server_web_1        python ./app.py --host=0.0.0.0   Up      0.0.0.0:5100->5100/tcp
+production_server_worker_1_1   celery -A workerA worker - ...   Up
+production_server_worker_1_2   celery -A workerA worker - ...   Up                                                             
+production_server_worker_1_3   celery -A workerA worker - ...   Up
+```
+
+Now we have 3 workers running in the system. 
+
+4f. Now scale down the cluster.
+
+`console # docker-compose up --scale worker_1=1 -d`
 
