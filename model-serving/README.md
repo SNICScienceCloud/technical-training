@@ -639,7 +639,7 @@ done
  - Create git empty directory
 
    ```console
-   # git init
+   git init
    ```
    
    Initialized empty Git repository in `/home/appuser/project/.git/`
@@ -658,7 +658,7 @@ done
  
    ```console
    git commit -m "new model" 
-   ```console
+   ```
    
  - connect development server's git to production server's git. 
 
