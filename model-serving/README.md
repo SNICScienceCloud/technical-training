@@ -7,7 +7,7 @@ This tutorial will cover following two topics:
 
 Important:
 
-_We expect that you have finished the prelab of the distributed e-infrastructures part._
+_It is expected that you have finished the prelab of the distributed e-infrastructures part._
 
 0. The tasks and the configurations are designed for the Ubuntu 18.04 with medium VM flavor.  
 
@@ -57,17 +57,17 @@ A client will send a prediction request from the frontend web server, the server
 1 - Goto "technical-training/model-serving/single_server_without_docker/production_server/“  directory. This directory contains the code that will run on your production server. Following is the structure of the code: 
 
 ``` 
-Flask Application based frontend. 
-app.py
-static
-templates
-Celery and RabbitMQ setup
-run_task.py
-workerA.py
-Machine learning Model and Data 
-model.h5
-model.json
-pima-indians-diabetes.csv
+ - Flask Application based frontend 
+    -- app.py
+    -- static
+    -- templates
+ - Celery and RabbitMQ setup
+    -- run_task.py
+    -- workerA.py
+ - Machine learning Model and Data 
+    -- model.h5
+    -- model.json
+    -- pima-indians-diabetes.csv
 ```
 
 Open different files and try to understand the application's structure. 
