@@ -679,3 +679,6 @@ done
    To 192.168.1.21:/home/appuser/my_project
    * [new branch]      master -> master 
    ```
+
+For further details visit following link: 
+https://www.digitalocean.com/community/tutorials/how-to-use-git-hooks-to-automate-development-and-deployment-tasks
