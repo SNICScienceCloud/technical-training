@@ -1,7 +1,7 @@
 This tutorial will cover the following two topics:
 
 1. Dynamic contextualization and model serving in a scalable production environment 
-3. Reliable continues integration and development process
+3. Reliable continuous integration and development process
 
 --------------------
 
@@ -54,9 +54,21 @@ In case you are not familiar with the above-mentioned packages please read the f
 
 A client will send a prediction request from the front-end web server, the server will pass the request to the backend Celery environment where running workers in the setup will pick up the task, run the predictions by loading the available model, send back the results and finally frontend server will display the results.
 
-## Steps for the contextualization
+### Steps for the contextualization
 
-1. Goto `technical-training/model-serving/single_server_without_docker/production_server/`  directory. This directory contains the code that will run on your production server. Following is the structure of the code: 
+0. Start a VM from the SSC dashboard and login to the client VM.
+
+```console 
+ssh -i ubuntu@<Client-IP>
+```
+
+1. Clone the git repository.
+
+```console
+git clone https://github.com/SNICScienceCloud/technical-training.git
+```
+
+2. Goto `technical-training/model-serving/single_server_without_docker/production_server/`  directory. This directory contains the code that will run on your production server. Following is the structure of the code: 
 
 ``` 
  - Flask Application based frontend 
@@ -74,7 +86,7 @@ A client will send a prediction request from the front-end web server, the serve
 
 Open different files and try to understand the application's structure. 
 
-2. Goto the `technical-training/model-serving/openstack-client/single_node_without_docker_client/` directory. This is the code that we will run to contextualize our production server. The code is based on the following two files:
+3. Goto the `technical-training/model-serving/openstack-client/single_node_without_docker_client/` directory. This is the code that we will run to contextualize our production server. The code is based on the following two files:
 
 ```console
 cloud-cfg.txt
@@ -120,7 +132,7 @@ apt install python-keystoneclient
 
 ------------------
 
-3. Once you have setup the environment, run the following command. 
+4. Once you have setup the environment, run the following command. 
 
 ```console 
 python3 start_instance.py
@@ -143,11 +155,12 @@ Welcome page `http://<PRODUCTION-SERVER-IP>:5100`. Predictions page `http://<PRO
 TERMINATE THE SERVER VM STARTED FOR THE TASK-1!
 
 -----------------------------
+
 ## Task-2: Single server deployment with Docker Containers
 
 In this task, we will repeat the same deployment but with Docker containers. It will create a flexible containerized deployment environment where each container has a defined role. 
 
-1. Goto `technical-training/model-serving/single_server_with_docker/production_server/` directory. This directory contains the code that will run on your production server. Following is the structure of the code: 
+1. Now goto `technical-training/model-serving/single_server_with_docker/production_server/` directory on the client VM. The directory contains the code that will run on your production server. Following is the structure of the code: 
 
 ``` 
  - Flask Application based frontend 
@@ -264,7 +277,7 @@ docker-compose up --scale worker_1=1 -d
 
 1. What problems Task-2 deployment strategy solves compared to the strategy adopted in Task-1? 
 
-2. What are the outstanding issues that the deployment strategy of Task-2 cannot not address? 
+2. What are the outstanding issues that the deployment strategy of Task-2 cannot not address? What are the possible solutions to address those outstanding issues? 
 
 3. What is the difference between horizontal and vertical scalability? The strategy discussed in Task-2, is it horizontal or vertical scalability? 
 
@@ -274,5 +287,63 @@ TERMINATE THE SERVER VM STARTED FOR THE TASK-2!
 
 -----------------------------
 
+# Continuous Integration and Continuous Delivery (CI/CD)
+
+I 
+
+## Task-3: Deployment of multiple servers using Ansible
+
+For this task we need three VMs
+
+1. Client VM: This machine will serve as an Ansible host name and initiate the configuration process. 
+
+2. Production Server: The machine will host the dockerised version of the application discussed in previous tasks (1 and 2).
+
+3. Development Server: The machine will host the development environment and push the new changes to the production server. 
+
+### Steps to setup Ansible host and orchestration environment
+
+1. Login to the Client machine
+
+```console 
+ssh -i ubuntu@<PRODUCTION-SERVER-IP>
+```
+
+2. Goto `technical-training/model-serving/ci_cd` directory. This directory contains the following two sub-directories 
+
+```
+production server 
+ - Flask Application based frontend 
+    -- app.py
+    -- static
+    -- templates
+ - Celery and RabbitMQ setup
+    -- run_task.py
+    -- workerA.py
+ - Machine learning Model and Data 
+    -- model.h5
+    -- model.json
+    -- pima-indians-diabetes.csv
+development server
+ - Machine learning Model and Data 
+    -- model.h5
+    -- model.json
+    -- pima-indians-diabetes.csv
+    -- neural_net.py
+  
+```
+
+Open different files and try to understand the application's structure. 
+
+3. Goto the `technical-training/model-serving/openstack-client/single_node_without_docker_client/` directory. This is the code that we will run to contextualize our production server. The code is based on the following two files:
+
+```console
+cloud-cfg.txt
+start_instance.py
+```
+
+
+
+## Task-4: CI/CD using Git HOOKS 
 
 -----------------------------
