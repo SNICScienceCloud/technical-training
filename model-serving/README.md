@@ -116,6 +116,7 @@ export OS_USER_DOMAIN_NAME="snic"
 export OS_IDENTITY_API_VERSION="3"
 export OS_PROJECT_DOMAIN_NAME="snic"
 ```
+
 - Set the environment variables by sourcing the RC-file:
 
 ```console 
@@ -230,6 +231,9 @@ sudo bash
 
 ```console 
 cd /technical-training/model-serving/single_server_with_docker/production_server
+```
+
+```console
 docker-compose ps
 ```
 
@@ -431,6 +435,7 @@ Repeat same step 3 with the `dev-cloud-cfg.txt`. Delete the old key from the sec
 ```console
 python3 start_instance.py
 ```
+
 The output will give you the internal IPs of the VMs. 
 
 ```console
@@ -450,8 +455,15 @@ Now we have two VM running with the internal IP addresses.
 
 ```console
 sudo bash
+```
+
+```console
 apt-add-repository ppa:ansible/ansible
+```
+```console
 apt update
+```
+```console
 apt install ansible
 ```
 We have ansible packages install. Now we will enter these IP addresses in the Ansible hosts file.
@@ -516,6 +528,7 @@ Now we will run the Ansible script available in the `technical-training/model-se
 ```console
 ansible-playbook configuration.yml --private-key=/home/ubuntu/cluster-keys/cluster-key
 ```
+
 The process will take 10 to 15 minutes to complete. Once the process successfully completed you have both production and development servers ready. 
 
 Attach floating IP address to the production server and access the same web page as we have in previous tasks.  
@@ -544,13 +557,13 @@ This
     
   ```console
   ssh -i cluster-key appuser@<DEVELOPMENT-SERVER-IP>
-  ```console
+  ```
     
 - Generate SSH key 
     
   ```console
   ssh-keygen
-  ```console
+  ```
 
 _NOTE: This step will create two files, private key `/home/appuser/.ssh/id_rsa` and public key `/home/appuser/.ssh/id_rsa.pub`._
 
@@ -560,7 +573,7 @@ _NOTE: This step will create two files, private key `/home/appuser/.ssh/id_rsa` 
     
 ```console
 ssh -i cluster-key appuser@<PRODUCTION-SERVER-IP>
-```console
+```
 
 - Open file `/home/appuser/.ssh/authorized_keys` and past the contents of the public key files. 
 
@@ -578,12 +591,19 @@ ssh -i cluster-key appuser@<PRODUCTION-SERVER-IP>
    
 ```console
 pwd 
+```
+
+Output
+
+```console
 /home/appuser/
 ```
-   
+
 ```console
 mkdir my_project
+```
 
+```console
 cd my_project
 ``` 
 
@@ -642,11 +662,15 @@ ssh -i cluster-key appuser@<DEVELOPMENT-SERVER-IP>
 ```console
 pwd
 /home/appuser/
+```
 
+```console
 mkdir my_project
+```
 
+```console
 cd my_project
-   ```
+```
 
 - This is your development directory. Double check that user `appuser` is the owner of `my_project` directory.
 
