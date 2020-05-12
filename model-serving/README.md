@@ -1,4 +1,4 @@
-The tutorial will cover the following two topics:
+This lab will cover the following two topics:
 
 1. Dynamic contextualization and model serving in a scalable production environment 
 3. Reliable continuous integration and development process
@@ -7,17 +7,17 @@ The tutorial will cover the following two topics:
 
 Important:
 
-_It is expected that you have finished the prelab of the distributed e-infrastructures part._
+0. _It is expected that students have finished the prelab of the distributed e-infrastructures part._
 
-_Please terminate VMs once you finish the task._ 
+1. _NOTE: Please terminate VMs once you finish the task._ 
 
-0. The tasks and the configurations are designed for the Ubuntu 18.04 with medium VM flavour.  
+2. The tasks and the configurations are designed for the Ubuntu 18.04 with medium VM flavour.  
 
-1. We will use SNIC Science Cloud (SSC) for all the tasks. In case you want to learn more about SSC visit website  http://cloud.snic.se
+3. We will use SNIC Science Cloud (SSC) for all the tasks. In case you want to learn more about SSC visit the website  http://cloud.snic.se
 
-2. We recommend you to create a VM in SSC and execute all the tasks on that virtual machine. You can run the tasks on your laptops but it may break your local working environment.
+4. We recommend you to create a VM in SSC and execute all the tasks on that virtual machine. You can run the tasks on your laptops but it may break your local working environment.
 
-3. For all these tasks clone the repository:
+3. For all the tasks clone the repository:
 
 https://github.com/SNICScienceCloud/technical-training.git
 
@@ -34,7 +34,7 @@ The code for all the tasks is available in the "model-serving" directory.
 
 # Dynamic contextualization
 
-Dynamic contextualization is a process of preparing a customized computing environment at runtime. The process ranging from creating/defining user roles and permissions to updating/installing different packages. 
+Dynamic contextualization is a process of preparing a customized computing environment at runtime. The process ranging from creating/defining user roles and permissions to updating/installing different packages and initiating services. 
 
 ## Task-1: Single server deployment 
 
@@ -52,14 +52,14 @@ In case you are not familiar with the above-mentioned packages please read the f
 3. Keras and TensorFlow -> https://www.tensorflow.org/guide/keras
 4. OpenStack -> https://www.openstack.org/
 
-A client will send a prediction request from the front-end web server, the server will pass the request to the backend Celery environment where running workers in the setup will pick up the task, run the predictions by loading the available model, send back the results and finally frontend server will display the results.
+The execution process will start when a client will send a prediction request from the front-end web server. The server will pass the request to the backend Celery environment where running workers in the setup will pick up the task, run the predictions by loading the available model, send back the results and finally frontend server will display the results.
 
 ### Steps for the contextualization
 
 0. Start a VM from the SSC dashboard and login to the client VM.
 
 ```console 
-ssh -i ubuntu@<Client-IP>
+ssh -i PATH-TO-PRIVATE-KEY ubuntu@<CLIENT-VM-FLOATING-IP>
 ```
 
 1. Clone the git repository.
@@ -68,7 +68,9 @@ ssh -i ubuntu@<Client-IP>
 git clone https://github.com/SNICScienceCloud/technical-training.git
 ```
 
-2. Goto `technical-training/model-serving/single_server_without_docker/production_server/`  directory. This directory contains the code that will run on your production server. Following is the structure of the code: 
+2. Goto the `technical-training/model-serving/single_server_without_docker/production_server/` directory. This directory contains the code that will run on the  production server VM.
+ 
+Following is the structure of the code: 
 
 ``` 
  - Flask Application based frontend 
@@ -84,9 +86,9 @@ git clone https://github.com/SNICScienceCloud/technical-training.git
     -- pima-indians-diabetes.csv
 ```
 
-Open different files and try to understand the application's structure. 
+Open files and try to understand the application's structure. 
 
-3. Goto the `technical-training/model-serving/openstack-client/single_node_without_docker_client/` directory. This is the code that we will run to contextualize our production server. The code is based on the following two files:
+3. Goto the `technical-training/model-serving/openstack-client/single_node_without_docker_client/` directory. This is the code that we will contextualize our production server. The code is based on the following two files:
 
 ```console
 - CloudInit configuration file  
@@ -95,13 +97,13 @@ Open different files and try to understand the application's structure.
   -- start_instance.py
 ```
 
-Open the files and try to understand the steps. _You need to setup variable values in the start_instance.py script._ 
+Open the files and try to understand the steps. _NOTE: You need to setup variable values in the start_instance.py script._ 
 
 -------------
 
 In order to run this code, you need to have OpenStack API environment running. 
 
-_NOTE that Openstack APIs are only need to be installed on the client VM_. 
+_NOTE: Openstack APIs are only need to be installed on the client VM._ 
 
 Follow the instructions available on the following links: 
 
@@ -124,7 +126,7 @@ export OS_PROJECT_NAME="SNIC 2020/20-25"
 source <project_name>_openrc.sh
 ```
 
-- The successful output of the following commands will confirm that you have the correct packages available on your VM:
+- The successful execution of the following commands will confirm that you have the correct packages available on your VM:
 
 ```console
 openstack server list
@@ -138,8 +140,8 @@ openstack image list
 
 ```console
 apt install python3-openstackclient
-apt install python-novaclient
-apt install python-keystoneclient
+apt install python3-novaclient
+apt install python3-keystoneclient
 ```
 
 ------------------
@@ -152,13 +154,14 @@ python3 start_instance.py
 
 The command will start a new server and initiate the contextualization process. It will take approximately 10 to 15 minutes. The progress can be seen on the cloud dashboard. Once the process finish, attach a floating IP to your production server and access the webpage from your client machine. 
 
-Welcome page `http://<PRODUCTION-SERVER-IP>:5100`. Predictions page `http://<PRODUCTION-SERVER-IP>:5100/predictions`
+- Welcome page `http://<PRODUCTION-SERVER-IP>:5100`
+- Predictions page `http://<PRODUCTION-SERVER-IP>:5100/predictions`
 
 ## Questions
 
-1. Explain how the application works? Please keep your answer brief to one paragraph. 
+1. Explain how the application works? Write one paragraph about application's framework. 
 
-2. What are the drawbacks of the current deployment strategy adopted in the task-1? Write at least four drawbacks.
+2. What are the drawbacks of the contextualization strategy adopted in the task-1? Write at least four drawbacks.
 
 3. Currently, the contextualization process takes 10 to 15 minutes. How can we reduce the deployment time?   
 
@@ -170,7 +173,7 @@ TERMINATE THE SERVER VM STARTED FOR TASK-1!
 
 ## Task-2: Single server deployment with Docker Containers
 
-In this task, we will repeat the same deployment but with Docker containers. It will create a flexible containerized deployment environment where each container has a defined role. 
+In this task, we will repeat the same deployment process but with Docker containers. This time we  will create a flexible containerized deployment environment where each container has a defined role. 
 
 1. Now goto `technical-training/model-serving/single_server_with_docker/production_server/` directory on the client VM. The directory contains the code that will run on your production server. Following is the structure of the code: 
 
@@ -202,7 +205,7 @@ Open different files and try to understand the application's structure.
   -- start_instance.py
 ```
 
-Open the files and try to understand the steps. _You need to setup variable values in the start_instance.py script._ 
+Open the files and try to understand the steps. _NOTE: You need to setup variable values in the start_instance.py script._ 
 
 3. Run the following command. 
 
