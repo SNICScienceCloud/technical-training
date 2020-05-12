@@ -98,37 +98,38 @@ Open different files and try to understand the application's structure.
 Open the files and try to understand the steps. _You need to setup variable values in the start_instance.py script._ 
 
 -------------
+
 In order to run this code, you need to have OpenStack API environment running. 
 
 _NOTE that Openstack APIs are only need to be installed on the client VM_. 
 
 Follow the instructions available on the following links: 
 
-i. Goto https://docs.openstack.org/install-guide/environment-packages-ubuntu.html , http://docs.openstack.org/cli-reference/common/cli_install_openstack_command_line_clients.html and download the client tools and API for OpenStack.
+- Goto https://docs.openstack.org/install-guide/environment-packages-ubuntu.html , http://docs.openstack.org/cli-reference/common/cli_install_openstack_command_line_clients.html and download the client tools and API for OpenStack.
 
-ii. Download the Runtime Configuration (RC) file from the SSC site (Project->Compute->Access & Security->API Access->Download OpenStack RC File).
+- Download the Runtime Configuration (RC) file from the SSC site (Project->Compute->Access & Security->API Access->Download OpenStack RC File).
 
-iii. Confirm that your RC file have following enviroment variables:
+- Confirm that your RC file have following enviroment variables:
 
 ```console
 export OS_USER_DOMAIN_NAME="snic"
 export OS_IDENTITY_API_VERSION="3"
 export OS_PROJECT_DOMAIN_NAME="snic"
 ```
-iv. Set the environment variables by sourcing the RC-file:
+- Set the environment variables by sourcing the RC-file:
 
 ```console 
 source <project_name>_openrc.sh
 ```
 
-v. The successful output of the following commands will confirm that you have the correct packages available on your VM:
+- The successful output of the following commands will confirm that you have the correct packages available on your VM:
 
 ```console
 openstack server list
 openstack image list
 ```
 
-vi. For the API communication we need following extra packages:
+- For the API communication we need following extra packages:
 
 ```console
 apt install python3-openstackclient
@@ -187,7 +188,7 @@ In this task, we will repeat the same deployment but with Docker containers. It 
 
 Open different files and try to understand the application's structure. 
 
-2 - Goto the `technical-training/model-serving/openstack-client/single_node_with_docker_client/` directory. This is the code that we will run to contextualize the production server. The code is based on the following two files:
+2. Goto the `technical-training/model-serving/openstack-client/single_node_with_docker_client/` directory. This is the code that we will run to contextualize the production server. The code is based on the following two files:
 
 ```console
 - CloudInit configuration file  
@@ -210,19 +211,19 @@ Welcome page `http://<PRODUCTION-SERVER-IP>:5100`. Predictions page `http://<PRO
 
 4. The next step is to test the horizontal scalability of the setup. 
 
-4a. Login to the production server. 
+- Login to the production server. 
 
 ```console 
 ssh -i ubuntu@<PRODUCTION-SERVER-IP>
 ```
 
-4b. Switch to the superuser mode.
+- Switch to the superuser mode.
    
 ```console
 sudo bash
 ```
 
-4c. Check the cluster status:
+- Check the cluster status:
 
 ```console 
 cd /technical-training/model-serving/single_server_with_docker/production_server
@@ -249,13 +250,13 @@ production_server_worker_1_1 -> Celery worker
 
 Now we will add multiple workers in the cluster using docker commands. 
 
-4d. Currently, there is one worker available. We will add two more workers. 
+- Currently, there is one worker available. We will add two more workers. 
 
 ```console 
 docker-compose up --scale worker_1=3 -d
 ```
 
-4e. Check the cluster status.
+- Check the cluster status.
 
 ```console
 docker-compose ps
@@ -275,7 +276,7 @@ production_server_worker_1_3   celery -A workerA worker - ...   Up
 
 Now we have 3 workers running in the system. 
 
-4f. Now scale down the cluster.
+- Now scale down the cluster.
 
 ```console 
 docker-compose up --scale worker_1=1 -d
@@ -320,7 +321,7 @@ ssh -i ubuntu@<PRODUCTION-SERVER-IP>
 2. Goto `technical-training/model-serving/ci_cd` directory. This directory contains the following two sub-directories 
 
 ```
-/production server 
+/production_server 
  - Flask Application based frontend 
     -- app.py
     -- static
@@ -332,7 +333,7 @@ ssh -i ubuntu@<PRODUCTION-SERVER-IP>
     -- model.h5
     -- model.json
     -- pima-indians-diabetes.csv
-/development server
+/development_server
  - Machine learning Model and Data 
     -- model.h5
     -- model.json
@@ -360,7 +361,7 @@ The client code will start two VMs and uisng Ansible orchestration environment i
 
 4. Installation and configuration of Ansible on the client machine.
 
-4a. First will generate a cluster SSH key.
+- First will generate a cluster SSH key.
 
 First check the username you are login as 
 
@@ -369,7 +370,7 @@ whoami
 ubuntu
 ```
 
-you need to be as _ubuntu_ user. If you are _root_ user switch back to _ubuntu_ user. 
+You need to be as _ubuntu_ user. If you are _root_ user switch back to _ubuntu_ user. 
 
 Create a directory 
 
@@ -377,7 +378,6 @@ Create a directory
 mkdir -p /home/ubuntu/cluster-keys
 
 ```
-
 
 ```console
 ssh-keygen -t rsa
@@ -414,11 +414,11 @@ Now we have cluster ssh keys at the following location:
 
 2. Public key: `/home/ubuntu/cluster-keys/cluster-key.pub`
 
-4c. Now we start Production and Development servers. But first open `prod-cloud-cfg.txt` delete the old key from the section `ssh_authorized_keys:` and copy the complete contents of `/home/ubuntu/cluster-keys/cluster-key.pub` in the section `ssh_authorized_keys:` 
+3. Now we start Production and Development servers. But first open `prod-cloud-cfg.txt` delete the old key from the section `ssh_authorized_keys:` and copy the complete contents of `/home/ubuntu/cluster-keys/cluster-key.pub` in the section `ssh_authorized_keys:` 
 
-Repeat same step with the `dev-cloud-cfg.txt`. Delete the old key from the section `ssh_authorized_keys:` and copy the complete contents of `/home/ubuntu/cluster-keys/cluster-key.pub` in the section `ssh_authorized_keys:`
+Repeat same step 3 with the `dev-cloud-cfg.txt`. Delete the old key from the section `ssh_authorized_keys:` and copy the complete contents of `/home/ubuntu/cluster-keys/cluster-key.pub` in the section `ssh_authorized_keys:`
 
-Now run the `start_instance.py` code.
+4. Run the `start_instance.py` code.
 
 ```console
 python3 start_instance.py
@@ -438,7 +438,7 @@ Instance: dev_server_6225 is in ACTIVE state ip address: 192.168.1.17
 ```
 Now we have two VM running with the internal IP addresses.
 
-4b. Install Ansible packages on the client machine. 
+5. Install Ansible packages on the client machine. 
 
 ```console
 sudo bash
@@ -446,13 +446,13 @@ apt-add-repository ppa:ansible/ansible
 apt update
 apt install ansible
 ```
-Now we have ansible packages install. 
+We have ansible packages install. Now we will enter these IP addresses in the Ansible hosts file.
 
 i. prod_server_with_docker_6225  -> 192.168.1.19
 
 ii. dev_server_6225 -> 192.168.1.17
 
-4d. Open the Ansible inventory file and add the IP address in that file. For this step you need to swtich to _root_ user.
+6. Open the Ansible inventory file and add the IP address in that file. For this step you need to swtich to _root_ user.
 
 ```console
 sudo bash
@@ -487,7 +487,7 @@ https://www.ansible.com/
 Easy installation instructions
 https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-ansible-on-ubuntu-18-04
 
-4e. Just to confirm the access premission are correctly set, access production and development server from the client VM. 
+- Just to confirm the access premission are correctly set, access production and development server from the client VM. 
 
 First switch back to user _ubuntu_
 
@@ -501,7 +501,7 @@ ssh -i /home/ubuntu/cluster-keys/cluster-key appuser@<DEVELOPMENT-SERVER-IP>
 ```
 If the login successfull, exit from the development server. 
 
-4f. For this step you need to be login as _ubuntu_ user on the client VM. 
+- For this step you need to be login as _ubuntu_ user on the client VM. 
 
 Now we will run the Ansible script available in the `technical-training/model-serving/openstack-client/single_node_with_docker_ansible_client` directory. 
 
@@ -512,79 +512,92 @@ The process will take 10 to 15 minutes to complete. Once the process successfull
 
 Attach floating IP address to the production server and access the same web page as we have in previous tasks.  
 
+## Questions
+
+1 - What is the difference between CloudInit and Ansible? 
+
+2 - Explain the configurations available in `dev-cloud-cfg.txt` and `prod-cloud-cfg.txt` files.
+
+3 - What problem we have solved by using Ansible?
+
+
+---------------------------------
+The Task-4 is the the continuation of Task-3. Do NOT terminate your instances setup in Task-3. 
 ---------------------------------
 
 ## Task-4: CI/CD using Git HOOKS 
 
+This 
 
-0 - SSH key based communication between Production and Development Servers 
+0. SSH key based communication between production and development servers 
 
-  - Login to Development Server 
+- Login to development server 
     
-    ```console
-    ssh -i cluster-key appuser@<DEVELOPMENT-SERVER-IP>
-    ```console
-    
-  - Generate SSH key 
-    
-    ```console
-    ssh-keygen
-    ```console
-
-  NOTE: This step will create two files, private key `/home/appuser/.ssh/id_rsa` and public key `/home/appuser/.ssh/id_rsa.pub`.
-
-  - copy contents of the public key file `/home/appuser/.ssh/id_rsa.pub` from the development server.
-
-  - Login to Production Server
-    
-    ```console
-    ssh -i cluster-key appuser@<PRODUCTION-SERVER-IP>
-    ```console
-
-  - Open file `/home/appuser/.ssh/authorized_keys` and past the contents of the public key files. 
-
-     ```console
-     nano /home/appuser/.ssh/authorized_keys
-     ``` 
-
-1 - Login to the Production Server 
-
-   ```console
-   ssh -i cluster-key appuser@<PRODUCTION-SERVER-IP> 
-   ```
-   
- - Create a directory (it will be jump directory)
-   
-   ```console
-   pwd 
-   /home/appuser/
-   ```
-   
-   ```console
-   mkdir my_project
-
-   cd my_project
-   ``` 
- - Here is the path to your jump directory. Double check that user `appuser` is the owner of `my_project` directory. 
-   
-   ```console
-   pwd
-    /home/appuser/my_project       
-   ```
-   
- - Create git empty directory 
-   
-   ```console
-   git init --bare
-   ```
-   
-   Initialized empty Git repository in `/home/appuser/my_project/`
-
- - Create a git hook `post-receive`
- 
   ```console
-  nano hooks/post-receive
-  ```
+  ssh -i cluster-key appuser@<DEVELOPMENT-SERVER-IP>
+  ```console
+    
+- Generate SSH key 
+    
+  ```console
+  ssh-keygen
+  ```console
+
+_NOTE: This step will create two files, private key `/home/appuser/.ssh/id_rsa` and public key `/home/appuser/.ssh/id_rsa.pub`._
+
+- copy the contents of public key file `/home/appuser/.ssh/id_rsa.pub` from the development server.
+
+- Login to production server
+    
+```console
+ssh -i cluster-key appuser@<PRODUCTION-SERVER-IP>
+```console
+
+- Open file `/home/appuser/.ssh/authorized_keys` and past the contents of the public key files. 
+
+```console
+nano /home/appuser/.ssh/authorized_keys
+``` 
+
+1. Login to the Production Server 
+
+```console
+ssh -i cluster-key appuser@<PRODUCTION-SERVER-IP> 
+```
+   
+- Create a directory (it will be jump directory)
+   
+```console
+pwd 
+/home/appuser/
+```
+   
+```console
+mkdir my_project
+
+cd my_project
+``` 
+
+- Here is the path to your jump directory. Double check that user `appuser` is the owner of `my_project` directory. 
+   
+```console
+pwd
+/home/appuser/my_project       
+```
+   
+- Create git empty directory 
+   
+```console
+git init --bare
+```
+   
+Initialized empty Git repository in `/home/appuser/my_project/`
+
+- Create a git hook `post-receive`
+ 
+```console
+nano hooks/post-receive
+```
 File contents  
 
 ```console
@@ -601,84 +614,138 @@ do
 done
 ```
 
-
- - Change permissions
+- Change permissions
  
-  ```console
-  chmod +x hooks/post-receive
-  ```
+```console
+chmod +x hooks/post-receive
+```
   
- - Exit Production Server
+- Exit Production Server
 
+2. login to the Development Server
 
-
-2 - login to the Development Server
-
-   ```console
-   ssh -i cluster-key appuser@<DEVELOPMENT-SERVER-IP>
-   ```
+```console
+ssh -i cluster-key appuser@<DEVELOPMENT-SERVER-IP>
+```
    
- - Create a directory
+- Create a directory
 
-   ```console
-   pwd
-     /home/appuser/
+```console
+pwd
+/home/appuser/
 
-   mkdir my_project
+mkdir my_project
 
-   cd my_project
+cd my_project
    ```
 
- - This is your development directory. Double check that user `appuser` is the owner of `my_project` directory.
+- This is your development directory. Double check that user `appuser` is the owner of `my_project` directory.
 
-   ```console
-   pwd
-     /home/appuser/my_project 
-   ```
+```console
+pwd
+/home/appuser/my_project 
+```
    
- - Create git empty directory
+- Create empty git repository
 
-   ```console
-   git init
-   ```
-   
-   Initialized empty Git repository in `/home/appuser/project/.git/`
+```console
+git init
+```
 
- - Add files model.h5 and  model.json in `/home/appuser/project/` directory. The files are available in `/technical-training/model-serving/ci_cd/development_server/` directory. 
+Output
 
- - Goto `/home/appuser/project` directory
+```console
+ Initialized empty Git repository in `/home/appuser/project/.git/`
+```
+
+- Add files `model.h5` and  `model.json` in `/home/appuser/project/` directory. The files are available in `/technical-training/model-serving/ci_cd/development_server/` directory. 
+
+- Goto `/home/appuser/project` directory
     
- - Add files for the commit 
+- Add files for the commit 
    
-   ```console
-   git add .
-   ```
-   
- - Commit files
+```console
+git add .
+```
+  
+- Commit files
  
-   ```console
-   git commit -m "new model" 
-   ```
+```console
+git commit -m "new model" 
+```
    
- - connect development server's git to production server's git. 
+- connect development server's git to production server's git. 
 
-   ```console
-   git remote add production appuser@<PRODUCTIONS-SERVER-IP>:/home/appuser/my_project
-   ```
+```console
+git remote add production appuser@<PRODUCTIONS-SERVER-IP>:/home/appuser/my_project
+```
    
- - Push your commits to the production server
+- Push your commits to the production server
    
-   ```console
-   git push production master
-   
-   Delta compression using up to 2 threads.
-   Compressing objects: 100% (4/4), done.
-   Writing objects: 100% (4/4), 2.36 KiB | 2.36 MiB/s, done.
-   Total 4 (delta 0), reused 0 (delta 0)
-   remote: Master ref received.  Deploying master branch to production...
-   To 192.168.1.21:/home/appuser/my_project
-   * [new branch]      master -> master 
-   ```
+```console
+git push production master
+```
+Output
+
+```console
+Delta compression using up to 2 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 2.36 KiB | 2.36 MiB/s, done.
+Total 4 (delta 0), reused 0 (delta 0)
+remote: Master ref received.  Deploying master branch to production...
+To 192.168.1.21:/home/appuser/my_project
+* [new branch]      master -> master 
+```
 
 For further details visit following link: 
 https://www.digitalocean.com/community/tutorials/how-to-use-git-hooks-to-automate-development-and-deployment-tasks
+
+3. Goto `/technical-training/model-serving/ci_cd/development_server/` directory. The directory contains the `neural_net.py` python script. The script will train a model and generate new model files `model.h5` and  `model.json`. Now we will make changes in the model files, move them in the git repository, make a commit and than push these new model files in the running  production pipeline. 
+
+- Run the script 
+ 
+ ```console
+   python3 neural_net.py 
+   ```
+- Copy model files (`model.h5` and  `model.json`) from the development directory `technical-training/model-serving/ci_cd/development_server/` to the git repository `/home/appuser/project` on the development server.    
+   
+```console
+   cp /technical-training/model-serving/ci_cd/development_server/model*  /home/appuser/project/.
+   ```   
+- Add to the git repository. 
+ 
+ ```console
+ git add . 
+ ```
+ 
+- Finally, commit and push the new model files. 
+ 
+ ```console
+git commit -m "new model" 
+```
+
+```console
+git push production master
+```
+Output
+
+```console
+Delta compression using up to 2 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 2.36 KiB | 2.36 MiB/s, done.
+Total 4 (delta 0), reused 0 (delta 0)
+remote: Master ref received.  Deploying master branch to production...
+To 192.168.1.21:/home/appuser/my_project
+* [new branch]      master -> master 
+```
+
+4. Improve the model by changing parameters or network architecture in the `neural_net.py` file and repeat the step-3 to push the new model to the production pipeline. 
+
+## Questions
+
+1 - What are git hooks? Explain the `post-receive` script available in this task. 
+
+2 - We have created a empty git repository on the production server. Why we need that directory? 
+
+3 - Write the names of four different git hooks and explain their functionalities. 
+Hints - Read the link available in the task or access sample scripts available in the `.hooks` directory. 
