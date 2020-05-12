@@ -515,6 +515,7 @@ First switch back to user _ubuntu_
 ```console
 ssh -i /home/ubuntu/cluster-keys/cluster-key appuser@<PRODUCTION-SERVER-IP>
 ```
+
 If the login is successfull, exit from the production server and repeat the step with development server 
 
 ```console
@@ -525,6 +526,10 @@ If the login successfull, exit from the development server.
 - For this step you need to be login as _ubuntu_ user on the client VM. 
 
 Now we will run the Ansible script available in the `technical-training/model-serving/openstack-client/single_node_with_docker_ansible_client` directory. 
+
+```console
+export ANSIBLE_HOST_KEY_CHECKING=False
+```
 
 ```console
 ansible-playbook configuration.yml --private-key=/home/ubuntu/cluster-keys/cluster-key
