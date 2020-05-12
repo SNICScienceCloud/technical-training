@@ -126,6 +126,9 @@ source <project_name>_openrc.sh
 
 ```console
 openstack server list
+```
+
+```console
 openstack image list
 ```
 
@@ -367,6 +370,11 @@ First check the username you are login as
 
 ```console
 whoami
+```
+
+Output
+
+```console
 ubuntu
 ```
 
@@ -433,8 +441,8 @@ Instance: prod_server_with_docker_6225 is in BUILD state, sleeping for 5 seconds
 Instance: dev_server_6225 is in BUILD state, sleeping for 5 seconds more...
 Instance: prod_server_with_docker_6225 is in ACTIVE state, sleeping for 5 seconds more...
 Instance: dev_server_6225 is in BUILD state, sleeping for 5 seconds more...
-Instance: prod_server_with_docker_6225 is in ACTIVE state ip address: 192.168.1.19
-Instance: dev_server_6225 is in ACTIVE state ip address: 192.168.1.17
+Instance: __prod_server_with_docker_6225__ is in ACTIVE state ip address: __192.168.1.19__
+Instance: __dev_server_6225__ is in ACTIVE state ip address: __192.168.1.17__
 ```
 Now we have two VM running with the internal IP addresses.
 
