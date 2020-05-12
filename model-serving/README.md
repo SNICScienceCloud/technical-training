@@ -1,4 +1,4 @@
-This tutorial will cover the following two topics:
+The tutorial will cover the following two topics:
 
 1. Dynamic contextualization and model serving in a scalable production environment 
 3. Reliable continuous integration and development process
@@ -159,7 +159,7 @@ Welcome page `http://<PRODUCTION-SERVER-IP>:5100`. Predictions page `http://<PRO
 
 -----------------------------
 
-TERMINATE THE SERVER VM STARTED FOR THE TASK-1!
+TERMINATE THE SERVER VM STARTED FOR TASK-1!
 
 -----------------------------
 
@@ -292,7 +292,7 @@ docker-compose up --scale worker_1=1 -d
 
 -----------------------------
 
-TERMINATE THE SERVER VM STARTED FOR THE TASK-2!
+TERMINATE THE SERVER VM STARTED FOR TASK-2!
 
 -----------------------------
 
@@ -520,9 +520,10 @@ Attach floating IP address to the production server and access the same web page
 
 3 - What problem we have solved by using Ansible?
 
-
 ---------------------------------
-The Task-4 is the the continuation of Task-3. Do NOT terminate your instances setup in Task-3. 
+
+The Task-4 is the continuation of Task-3. Do NOT terminate your instances setup in Task-3. 
+
 ---------------------------------
 
 ## Task-4: CI/CD using Git HOOKS 
@@ -738,6 +739,8 @@ remote: Master ref received.  Deploying master branch to production...
 To 192.168.1.21:/home/appuser/my_project
 * [new branch]      master -> master 
 ```
+
+- Access the url `http://<PRODUCTION-SERVER-IP>:5100/predictions` and you will see the changes in predictions.
 
 4. Improve the model by changing parameters or network architecture in the `neural_net.py` file and repeat the step-3 to push the new model to the production pipeline. 
 
