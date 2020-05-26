@@ -45,10 +45,10 @@ The OpenStack software helps you create/import keys, and will make sure that you
 1.	"Launch" an instance by booting an image of Ubuntu 18.04 with 1 VCPUs (remember to inject the keypair you created in Task 0). Choose the default option "Create New Volume" and choose "no" for "Delete Volume on Instance Delete". 
 2.	Assign a floating IP to the instance.
 3.	Create a new security group, and use it to open port 22 on the instance (add the rule to the security group, then attach the security group to the instance). 
-4.	Access the instance using a SSH client and install the program “cowsay”. Also create a file in the home directory. To ssh to the instance on Linux: ssh -i yourkey.pem ubuntu@<floating-ip>
+4.	Access the instance using a SSH client and install the program “cowsay”. Also create a file in the home directory. To ssh to the instance on Linux: `ssh -i yourkey.pem ubuntu@<floating-ip>`
 5. 	Locate the volume that has been created to back your instance and change its name. 
 6.	delete the instance. 
-7. 	Create a new instance by booting it from from the volume that was created for your previous instance.
+7. 	Create a new instance by booting it from the volume that was created for your previous instance.
 8.	Access the instance. Is the file you created still there? 
 9.	delete the instance.
 10.	Create a snapshot of the volume. 
@@ -64,7 +64,7 @@ The OpenStack software helps you create/import keys, and will make sure that you
 	a.	Image Service
 	b.	Compute Service
 5. 	What is the difference between booting from an image (snapshot) and booting from a volume (snapshot) snapshot? 
-6.	For an instance booted from an image, will changes to your instance context be preserved after deleting the instance?
+6.	For an instance booted from an image, will change to your instance context be preserved after deleting the instance?
 7.	For an instance booted by createing  a new volume, will your changes to the instance be persisted on the volume after deleteing the insance? 
 8. 	What does the snapshot do? What can you use it for? 
 9. 	What is the meaning of "Create New Volume" upon launching an instance, and in what situations would you want to "Delete Volume on Instance Delete"?  
